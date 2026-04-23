@@ -7,12 +7,14 @@ export interface CartItem {
 }
 
 @Injectable({ providedIn: 'root' })
-export class Cartservice {
+export class CartService {
   items = signal<CartItem[]>([]);
 
-  totalprice = computed(() =>
+  totalPrice = computed(() =>
     this.items().reduce((sum, item) => sum + item.product.price.current * item.quantity, 0),
   );
+
+  totalItems = computed(() => this.items().reduce((sum, item) => sum + item.quantity, 0));
 
   addToCart(product: Product) {
     const current = this.items();

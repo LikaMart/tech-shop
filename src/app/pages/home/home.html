@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div class="home">
+  @if (isLoading()) {
+    <p>იტვირთება...</p>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track product._id) {
+        <div class="product-card">
+          <img [src]="product.thumbnail" [alt]="product.title" />
+          <h3>{{ product.title }}</h3>
+          <p class="brand">{{ product.brand }}</p>
+          <p class="price">{{ product.price.current }} {{ product.price.currency }}</p>
+          <div class="actions">
+            <a [routerLink]="['/product', product._id]">დეტალები</a>
+            <button (click)="addToCart(product)">კალათაში</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <a routerLink="/home" class="logo"> TechShop</a>
+
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">მთავარი</a>
+    <a routerLink="/about" routerLinkActive="active">ჩვენს შესახებ</a>
+
+    @if (auth.isLoggedIn()) {
+      <a routerLink="/cart" routerLinkActive="active"> 🛒 კალათა ({{ cart.totalItems() }}) </a>
+      <button (click)="auth.signOut()">გასვლა</button>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active">შესვლა</a>
+      <a routerLink="/register" routerLinkActive="active">რეგისტრაცია</a>
+    }
+  </div>
+</nav>

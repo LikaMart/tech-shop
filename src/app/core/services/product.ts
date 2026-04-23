@@ -6,7 +6,7 @@ export interface Product {
   title: string;
   description: string;
   brand: string;
-  thumblain: string;
+  thumbnail: string;
   images: string[];
   stock: number;
   rating: number;
@@ -16,7 +16,7 @@ export interface Product {
     current: number;
     currency: string;
     beforeDiscount: number;
-    discountPersentage: number;
+    discountPercentage: number;
   };
   category: {
     id: string;
