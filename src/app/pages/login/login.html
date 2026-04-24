@@ -1,1 +1,18 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <h2>შესვლა</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="email" type="email" placeholder="მეილი" />
+    <input formControlName="password" type="password" placeholder="პაროლი" />
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="isLoading()">
+      {{ isLoading() ? 'იტვირთება...' : 'შესვლა' }}
+    </button>
+  </form>
+
+  <p>ანგარიში არ გაქვს? <a routerLink="/register">დარეგისტრირდი</a></p>
+</div>
