@@ -2,9 +2,13 @@
 /* #region Variables */
 :root {
   --main-color: #1a1a2e;
-  --accent-color: #e94560;
+  --accent-color: #7c3aed;
+  --accent-hover: #6d28d9;
   --text-color: #ffffff;
-  --bg-color: #f5f5f5;
+  --text-muted: #94a3b8;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
 }
 /* #endregion */
 
@@ -20,10 +24,9 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', 'Roboto', sans-serif;
   background-color: var(--bg-color);
-  padding-top: 70px; /* Space for fixed navbar */
-  padding-bottom: 250px; /* Space for fixed footer */
+  color: #1e293b;
 }
 ul,
 ol {
@@ -57,24 +60,21 @@ img {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
 }
 .container {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-}
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 0 24px;
 }
 .flex-row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 /* #endregion */
