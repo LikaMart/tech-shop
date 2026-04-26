@@ -1,15 +1,22 @@
 <nav class="navbar">
-  <div class="container flex-row" style="justify-content: space-between;">
+  <div class="container flex-row" style="justify-content: space-between">
     <a routerLink="/home" class="logo"> TechShop</a>
 
+    <input type="checkbox" id="burger-toggle" class="burger-toggle" />
+    <label for="burger-toggle" class="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
     <div class="nav-links">
-      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">მთავარი</a>
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        >მთავარი</a
+      >
       <a routerLink="/about" routerLinkActive="active">ჩვენს შესახებ</a>
 
       @if (auth.isLoggedIn()) {
-        <a routerLink="/cart" routerLinkActive="active">
-          🛒 კალათა ({{ cart.totalItems() }})
-        </a>
+        <a routerLink="/cart" routerLinkActive="active">🛒 ({{ cart.totalItems() }})</a>
         <button (click)="auth.signOut()">გასვლა</button>
       } @else {
         <a routerLink="/login" routerLinkActive="active">შესვლა</a>

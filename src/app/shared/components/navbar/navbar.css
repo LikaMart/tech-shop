@@ -1,4 +1,3 @@
-/* navbar.css */
 .navbar {
   background-color: var(--main-color);
   color: var(--text-color);
@@ -7,6 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
@@ -47,4 +47,71 @@
 
 .nav-links button:hover {
   opacity: 0.85;
+}
+
+/* Burger */
+.burger-toggle {
+  display: none;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.burger span {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* მობილური */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--main-color);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 24px 24px;
+    transition: right 0.3s ease;
+    z-index: 99;
+    gap: 20px;
+  }
+
+  .burger-toggle:checked ~ div .nav-links,
+  .burger-toggle:checked + .burger + .nav-links {
+    right: 0;
+  }
+
+  /* burger → X */
+  .burger-toggle:checked + .burger span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .burger-toggle:checked + .burger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-toggle:checked + .burger span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
+  }
 }
