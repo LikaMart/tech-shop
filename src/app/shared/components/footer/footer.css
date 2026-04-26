@@ -3,6 +3,10 @@
   color: var(--text-color);
   padding: 40px 32px 16px;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .footer-content {
@@ -10,6 +14,23 @@
   justify-content: space-between;
   gap: 32px;
   margin-bottom: 32px;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer {
+    padding: 24px 16px 16px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-links ul {
+    align-items: center;
+  }
 }
 
 .footer-logo h3 {

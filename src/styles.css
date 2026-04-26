@@ -22,6 +22,8 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--bg-color);
+  padding-top: 70px; /* Space for fixed navbar */
+  padding-bottom: 250px; /* Space for fixed footer */
 }
 ul,
 ol {
