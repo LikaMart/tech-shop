@@ -1,18 +1,54 @@
 <div class="login-wrapper">
-  <h2>შესვლა</h2>
+  <div class="login-card">
+    <h2>შესვლა</h2>
+    <p class="subtitle">გამარჯობა! შედი შენს ანგარიშზე</p>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <input formControlName="email" type="email" placeholder="მეილი" />
-    <input formControlName="password" type="password" placeholder="პაროლი" />
+    <form #loginForm="ngForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="email">მეილი</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          #emailField="ngModel"
+          placeholder="example@gmail.com"
+        />
+        @if (emailField.invalid && emailField.touched) {
+          <span class="error-msg">სწორი მეილი შეიყვანეთ</span>
+        }
+      </div>
 
-    @if (error()) {
-      <p class="error">{{ error() }}</p>
-    }
+      <div class="form-group">
+        <label for="password">პაროლი</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          #passwordField="ngModel"
+          placeholder="••••••••"
+        />
+        @if (passwordField.invalid && passwordField.touched) {
+          <span class="error-msg">პაროლი სავალდებულოა</span>
+        }
+      </div>
 
-    <button type="submit" [disabled]="isLoading()">
-      {{ isLoading() ? 'იტვირთება...' : 'შესვლა' }}
-    </button>
-  </form>
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
 
-  <p>ანგარიში არ გაქვს? <a routerLink="/register">დარეგისტრირდი</a></p>
+      <button type="submit" [disabled]="isLoading() || loginForm.invalid">
+        {{ isLoading() ? 'იტვირთება...' : 'შესვლა' }}
+      </button>
+    </form>
+
+    <p class="switch-link">
+      ანგარიში არ გაქვს?
+      <a routerLink="/register">დარეგისტრირდი</a>
+    </p>
+  </div>
 </div>

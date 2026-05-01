@@ -1,34 +1,34 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class LoginComponent {
-  private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
 
+  email = '';
+  password = '';
   error = signal<string>('');
   isLoading = signal<boolean>(false);
 
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  });
-
   submit() {
-    if (this.form.invalid) return;
+    if (!this.email || !this.password) {
+      this.error.set('გთხოვთ შეავსოთ ყველა ველი');
+      return;
+    }
+
     this.isLoading.set(true);
     this.error.set('');
 
-    this.auth.signIn(this.form.value as any).subscribe({
+    this.auth.signIn({ email: this.email, password: this.password }).subscribe({
       next: () => this.router.navigate(['/home']),
       error: () => {
         this.error.set('არასწორი მეილი ან პაროლი');
