@@ -41,10 +41,10 @@ export class ProductService {
   products = signal<Product[]>([]);
   isLoading = signal<boolean>(false);
 
-  getAll(page: number = 1, limit: number = 10) {
+  getAll(pageIndex: number = 1, pageSize: number = 10) {
     this.isLoading.set(true);
     return this.http.get<ProductsResponse>(
-      `${this.apiUrl}/products/all?page=${page}&limit=${limit}`,
+      `${this.apiUrl}/products/all?page_index=${pageIndex}&page_size=${pageSize}`,
     );
   }
 
@@ -57,6 +57,6 @@ export class ProductService {
   }
 
   search(keyword: string) {
-    return this.http.get<ProductsResponse>(`${this.apiUrl}/products/all?keywords=${keyword}`);
+    return this.http.get<ProductsResponse>(`${this.apiUrl}/products/search?keywords=${keyword}`);
   }
 }

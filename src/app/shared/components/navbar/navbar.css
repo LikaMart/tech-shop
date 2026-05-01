@@ -84,6 +84,19 @@
   color: white;
 }
 
+    /*
+.nav-links li a::after {
+  content: '';
+  width: 50%;
+  height: 2px;
+  background-color: var(--accent-color3);
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  box-shadow: 1px 1px 10px 4px var(--accent-color3);
+  border-radius: 50%;
+} */
+
 /* Burger */
 .burger-toggle {
   display: none;
