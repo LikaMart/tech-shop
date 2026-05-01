@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
 })
 export class HomeComponent implements OnInit {
   private productService = inject(ProductService);
@@ -26,11 +26,15 @@ export class HomeComponent implements OnInit {
       },
       error: () => {
         this.isLoading.set(false);
-      }
+      },
     });
   }
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
+    if (this.cartService.cart()) {
+      this.cartService.updateCart(product._id).subscribe();
+    } else {
+      this.cartService.createCart(product._id).subscribe();
+    }
   }
 }
