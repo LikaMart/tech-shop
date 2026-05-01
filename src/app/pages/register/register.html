@@ -1,1 +1,122 @@
-<p>register works!</p>
+<div class="register-wrapper">
+  <div class="register-card">
+    <h2>რეგისტრაცია</h2>
+    <p class="subtitle">შექმენი ახალი ანგარიში</p>
+
+    <form #registerForm="ngForm" (ngSubmit)="submit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">სახელი</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="firstName"
+            required
+            #firstNameField="ngModel"
+            placeholder="სახელი"
+          />
+          @if (firstNameField.invalid && firstNameField.touched) {
+            <span class="error-msg">სახელი სავალდებულოა</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">გვარი</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="lastName"
+            required
+            #lastNameField="ngModel"
+            placeholder="გვარი"
+          />
+          @if (lastNameField.invalid && lastNameField.touched) {
+            <span class="error-msg">გვარი სავალდებულოა</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">მეილი</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          #emailField="ngModel"
+          placeholder="example@gmail.com"
+        />
+        @if (emailField.invalid && emailField.touched) {
+          <span class="error-msg">სწორი მეილი შეიყვანეთ</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="age">ასაკი</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          [(ngModel)]="age"
+          required
+          min="18"
+          #ageField="ngModel"
+          placeholder="18"
+        />
+        @if (ageField.invalid && ageField.touched) {
+          <span class="error-msg">ასაკი სავალდებულოა (მინ. 18)</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">პაროლი</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          #passwordField="ngModel"
+          placeholder="••••••••"
+        />
+        @if (passwordField.invalid && passwordField.touched) {
+          <span class="error-msg">პაროლი მინიმუმ 6 სიმბოლო</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">პაროლის დადასტურება</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          #confirmPasswordField="ngModel"
+          placeholder="••••••••"
+        />
+        @if (confirmPassword && password !== confirmPassword) {
+          <span class="error-msg">პაროლები არ ემთხვევა</span>
+        }
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <button type="submit" [disabled]="isLoading() || registerForm.invalid">
+        {{ isLoading() ? 'იტვირთება...' : 'რეგისტრაცია' }}
+      </button>
+    </form>
+
+    <p class="switch-link">
+      უკვე გაქვს ანგარიში?
+      <a routerLink="/login">შესვლა</a>
+    </p>
+  </div>
+</div>
