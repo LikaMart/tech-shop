@@ -55,20 +55,78 @@
         }
       </div>
 
+      <div class="form-row">
+        <div class="form-group">
+          <label for="age">ასაკი</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            [(ngModel)]="age"
+            required
+            min="18"
+            #ageField="ngModel"
+            placeholder="18"
+          />
+          @if (ageField.invalid && ageField.touched) {
+            <span class="error-msg">მინ. 18</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="gender">სქესი</label>
+          <select id="gender" name="gender" [(ngModel)]="gender" required>
+            <option value="MALE">მამრობითი</option>
+            <option value="FEMALE">მდედრობითი</option>
+          </select>
+        </div>
+      </div>
+
       <div class="form-group">
-        <label for="age">ასაკი</label>
+        <label for="phone">ტელეფონი</label>
         <input
-          type="number"
-          id="age"
-          name="age"
-          [(ngModel)]="age"
+          type="tel"
+          id="phone"
+          name="phone"
+          [(ngModel)]="phone"
           required
-          min="18"
-          #ageField="ngModel"
-          placeholder="18"
+          #phoneField="ngModel"
+          placeholder="+995555123456"
         />
-        @if (ageField.invalid && ageField.touched) {
-          <span class="error-msg">ასაკი სავალდებულოა (მინ. 18)</span>
+        @if (phoneField.invalid && phoneField.touched) {
+          <span class="error-msg">ტელეფონი სავალდებულოა</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="address">მისამართი</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          [(ngModel)]="address"
+          required
+          #addressField="ngModel"
+          placeholder="თბილისი, რუსთაველის 1"
+        />
+        @if (addressField.invalid && addressField.touched) {
+          <span class="error-msg">მისამართი სავალდებულოა</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="zipcode">საფოსტო კოდი</label>
+        <input
+          type="text"
+          id="zipcode"
+          name="zipcode"
+          [(ngModel)]="zipcode"
+          required
+          #zipcodeField="ngModel"
+          placeholder="0101"
+        />
+        @if (zipcodeField.invalid && zipcodeField.touched) {
+          <span class="error-msg">საფოსტო კოდი სავალდებულოა</span>
         }
       </div>
 
@@ -80,12 +138,12 @@
           name="password"
           [(ngModel)]="password"
           required
-          minlength="6"
+          minlength="8"
           #passwordField="ngModel"
           placeholder="••••••••"
         />
         @if (passwordField.invalid && passwordField.touched) {
-          <span class="error-msg">პაროლი მინიმუმ 6 სიმბოლო</span>
+          <span class="error-msg">პაროლი მინიმუმ 8 სიმბოლო</span>
         }
       </div>
 

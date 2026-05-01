@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService, Product } from '../../core/services/product';
 import { CartService } from '../../core/services/cart';
 import { RouterLink } from '@angular/router';
+import { GelPipe } from '../../shared/pipes/gel-pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, GelPipe],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

@@ -15,9 +15,9 @@
               <h3>{{ product.title }}</h3>
               <p class="brand">{{ product.brand }}</p>
               <div class="price-row">
-                <span class="price">{{ product.price.current }} $</span>
+                <span class="price">{{ product.price.current | gel }}</span>
                 @if (product.price.discountPercentage > 0) {
-                  <span class="price-old">{{ product.price.beforeDiscount }} $</span>
+                  <span class="price-old">{{ product.price.beforeDiscount | gel }}</span>
                   <span class="discount-badge">-{{ product.price.discountPercentage }}%</span>
                 }
               </div>

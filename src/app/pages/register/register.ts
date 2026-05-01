@@ -8,7 +8,7 @@ import { AuthService } from '../../core/services/auth';
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './register.html',
-  styleUrl: './register.css'
+  styleUrl: './register.css',
 })
 export class RegisterComponent {
   private auth = inject(AuthService);
@@ -20,11 +20,22 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   age = 18;
+  phone = '';
+  address = '';
+  zipcode = '';
+  gender: 'MALE' | 'FEMALE' = 'MALE';
+
   error = signal<string>('');
   isLoading = signal<boolean>(false);
 
   submit() {
-    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPassword) {
+    if (
+      !this.firstName ||
+      !this.lastName ||
+      !this.email ||
+      !this.password ||
+      !this.confirmPassword
+    ) {
       this.error.set('გთხოვთ შეავსოთ ყველა ველი');
       return;
     }
@@ -37,19 +48,25 @@ export class RegisterComponent {
     this.isLoading.set(true);
     this.error.set('');
 
-    this.auth.signUp({
-      email: this.email,
-      password: this.password,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      age: this.age,
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + this.email
-    }).subscribe({
-      next: () => this.router.navigate(['/home']),
-      error: () => {
-        this.error.set('რეგისტრაცია ვერ მოხერხდა');
-        this.isLoading.set(false);
-      }
-    });
+    this.auth
+      .signUp({
+        email: this.email,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        age: this.age,
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + this.email,
+        address: this.address,
+        phone: this.phone,
+        zipcode: this.zipcode,
+        gender: this.gender,
+      })
+      .subscribe({
+        next: () => this.router.navigate(['/home']),
+        error: () => {
+          this.error.set('რეგისტრაცია ვერ მოხერხდა');
+          this.isLoading.set(false);
+        },
+      });
   }
 }

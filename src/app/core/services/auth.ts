@@ -15,6 +15,10 @@ export interface SignUpRequest {
   lastName: string;
   age: number;
   avatar: string;
+  address: string;
+  phone: string;
+  zipcode: string;
+  gender: 'MALE' | 'FEMALE';
 }
 
 export interface AuthResponse {
@@ -32,21 +36,21 @@ export class AuthService {
 
   signIn(body: SignInRequest) {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/sign_in`, body).pipe(
-      tap(res => {
+      tap((res) => {
         localStorage.setItem('access.token', res.access_token);
         localStorage.setItem('refresh.token', res.refresh_token);
         this.isLoggedIn.set(true);
-      })
+      }),
     );
   }
 
   signUp(body: SignUpRequest) {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/sign_up`, body).pipe(
-      tap(res => {
+      tap((res) => {
         localStorage.setItem('access.token', res.access_token);
         localStorage.setItem('refresh.token', res.refresh_token);
         this.isLoggedIn.set(true);
-      })
+      }),
     );
   }
 
