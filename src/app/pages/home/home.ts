@@ -12,7 +12,7 @@ import { map, catchError, of } from 'rxjs';
   standalone: true,
   imports: [RouterLink, GelPipe],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
 })
 export class HomeComponent {
   private productService = inject(ProductService);
@@ -22,20 +22,23 @@ export class HomeComponent {
 
   products = toSignal(
     this.productService.getAll().pipe(
-      map(res => res.products),
+      map((res) => res.products),
       catchError(() => {
         this.error.set('პროდუქტები ვერ ჩაიტვირთა');
         return of([]);
-      })
+      }),
     ),
-    { initialValue: [] as Product[] }
+    { initialValue: [] as Product[] },
   );
 
   addToCart(product: Product) {
-    if (this.cartService.cart()) {
-      this.cartService.updateCart(product._id).subscribe();
-    } else {
-      this.cartService.createCart(product._id).subscribe();
-    }
+    this.cartService.updateCart(product._id).subscribe({
+      next: () => {
+        console.log('კალათა განახლდა');
+      },
+      error: () => {
+        this.cartService.createCart(product._id).subscribe();
+      },
+    });
   }
 }

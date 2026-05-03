@@ -1,1 +1,38 @@
-<p>cart works!</p>
+<div class="cart-page">
+  <div class="container">
+    <h1 class="page-title">კალათა 🛒</h1>
+
+    @if (cartService.cart()) {
+      <div class="cart-content">
+        <div class="cart-items">
+          @for (item of cartService.cart()!.products; track item.productId) {
+            <div class="cart-item">
+              <div class="item-info">
+                <p class="item-id">პროდუქტი: {{ item.productId }}</p>
+                <p class="item-qty">რაოდენობა: {{ item.quantity }}</p>
+                <p class="item-price">ფასი: {{ item.pricePerQuantity | gel }}</p>
+              </div>
+              <button class="remove-btn" (click)="removeItem(item.productId)">
+                🗑️ წაშლა
+              </button>
+            </div>
+          } @empty {
+            <p class="empty">კალათა ცარიელია</p>
+          }
+        </div>
+
+        <div class="cart-summary">
+          <h3>სულ</h3>
+          <p>პროდუქტები: {{ cartService.cart()!.total.products }}</p>
+          <p>რაოდენობა: {{ cartService.cart()!.total.quantity }}</p>
+          <p class="total-price">ჯამი: {{ cartService.cart()!.total.price.current | gel }}</p>
+          <button class="checkout-btn" (click)="doCheckout()">შეკვეთა ✅</button>
+          <button class="clear-btn" (click)="clear()">გასუფთავება 🗑️</button>
+        </div>
+      </div>
+    } @else {
+      <p class="empty">კალათა ცარიელია</p>
+      <a routerLink="/home" class="back-btn">← პროდუქტებზე დაბრუნება</a>
+    }
+  </div>
+</div>
