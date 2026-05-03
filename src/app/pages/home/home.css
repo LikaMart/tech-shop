@@ -34,7 +34,9 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   display: flex;
   flex-direction: column;
 }
@@ -115,6 +117,19 @@
 .actions {
   display: flex;
   gap: 8px;
+}
+
+.error-text {
+  text-align: center;
+  color: #ef4444;
+  padding: 40px;
+  font-size: 1.1rem;
+}
+
+.rating {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
 }
 
 .actions a {

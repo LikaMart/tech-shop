@@ -3,8 +3,10 @@
     <h1 class="page-title">პროდუქტები</h1>
     <p class="page-subtitle">აირჩიე შენთვის სასურველი ტექნიკა</p>
 
-    @if (isLoading()) {
-      <p class="loading">⏳ იტვირთება...</p>
+    @if (error()) {
+      <p class="error-text">{{ error() }}</p>
+    } @else if (products().length === 0) {
+      <p class="loading">⏳ Products are loading...</p>
     } @else {
       <div class="products-grid">
         @for (product of products(); track product._id) {
@@ -21,12 +23,17 @@
                   <span class="discount-badge">-{{ product.price.discountPercentage }}%</span>
                 }
               </div>
+              <div class="rating">
+                ⭐ {{ product.rating }}
+              </div>
               <div class="actions">
                 <a [routerLink]="['/product', product._id]">დეტალები</a>
                 <button (click)="addToCart(product)">🛒 კალათაში</button>
               </div>
             </div>
           </div>
+        } @empty {
+          <p>Products could not be loaded.</p>
         }
       </div>
     }
