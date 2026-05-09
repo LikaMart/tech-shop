@@ -1,12 +1,12 @@
 <div class="register-wrapper">
   <div class="register-card">
-    <h2>რეგისტრაცია</h2>
-    <p class="subtitle">შექმენი ახალი ანგარიში</p>
+    <h2>{{ lang.translations().registerTitle }}</h2>
+    <p class="subtitle">{{ lang.translations().registerSubtitle }}</p>
 
     <form #registerForm="ngForm" (ngSubmit)="submit()">
       <div class="form-row">
         <div class="form-group">
-          <label for="firstName">სახელი</label>
+          <label for="firstName">{{ lang.translations().registerFirstName }}</label>
           <input
             type="text"
             id="firstName"
@@ -14,15 +14,15 @@
             [(ngModel)]="firstName"
             required
             #firstNameField="ngModel"
-            placeholder="სახელი"
+            [placeholder]="lang.translations().registerFirstName"
           />
           @if (firstNameField.invalid && firstNameField.touched) {
-            <span class="error-msg">სახელი სავალდებულოა</span>
+            <span class="error-msg">{{ lang.translations().registerFirstName }} სავალდებულოა</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="lastName">გვარი</label>
+          <label for="lastName">{{ lang.translations().registerLastName }}</label>
           <input
             type="text"
             id="lastName"
@@ -30,16 +30,16 @@
             [(ngModel)]="lastName"
             required
             #lastNameField="ngModel"
-            placeholder="გვარი"
+            [placeholder]="lang.translations().registerLastName"
           />
           @if (lastNameField.invalid && lastNameField.touched) {
-            <span class="error-msg">გვარი სავალდებულოა</span>
+            <span class="error-msg">{{ lang.translations().registerLastName }} სავალდებულოა</span>
           }
         </div>
       </div>
 
       <div class="form-group">
-        <label for="email">მეილი</label>
+        <label for="email">{{ lang.translations().loginEmail }}</label>
         <input
           type="email"
           id="email"
@@ -51,13 +51,13 @@
           placeholder="example@gmail.com"
         />
         @if (emailField.invalid && emailField.touched) {
-          <span class="error-msg">სწორი მეილი შეიყვანეთ</span>
+          <span class="error-msg">{{ lang.translations().loginEmailError }}</span>
         }
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="age">ასაკი</label>
+          <label for="age">{{ lang.translations().registerAge }}</label>
           <input
             type="number"
             id="age"
@@ -74,16 +74,16 @@
         </div>
 
         <div class="form-group">
-          <label for="gender">სქესი</label>
+          <label for="gender">{{ lang.translations().registerGender }}</label>
           <select id="gender" name="gender" [(ngModel)]="gender" required>
-            <option value="MALE">მამრობითი</option>
-            <option value="FEMALE">მდედრობითი</option>
+            <option value="MALE">{{ lang.translations().registerGenderMale }}</option>
+            <option value="FEMALE">{{ lang.translations().registerGenderFemale }}</option>
           </select>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="phone">ტელეფონი</label>
+        <label for="phone">{{ lang.translations().registerPhone }}</label>
         <input
           type="tel"
           id="phone"
@@ -94,12 +94,12 @@
           placeholder="+995555123456"
         />
         @if (phoneField.invalid && phoneField.touched) {
-          <span class="error-msg">ტელეფონი სავალდებულოა</span>
+          <span class="error-msg">{{ lang.translations().registerPhone }} სავალდებულოა</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="address">მისამართი</label>
+        <label for="address">{{ lang.translations().registerAddress }}</label>
         <input
           type="text"
           id="address"
@@ -110,12 +110,12 @@
           placeholder="თბილისი, რუსთაველის 1"
         />
         @if (addressField.invalid && addressField.touched) {
-          <span class="error-msg">მისამართი სავალდებულოა</span>
+          <span class="error-msg">{{ lang.translations().registerAddress }} სავალდებულოა</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="zipcode">საფოსტო კოდი</label>
+        <label for="zipcode">{{ lang.translations().registerZipcode }}</label>
         <input
           type="text"
           id="zipcode"
@@ -126,12 +126,12 @@
           placeholder="0101"
         />
         @if (zipcodeField.invalid && zipcodeField.touched) {
-          <span class="error-msg">საფოსტო კოდი სავალდებულოა</span>
+          <span class="error-msg">{{ lang.translations().registerZipcode }} სავალდებულოა</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="password">პაროლი</label>
+        <label for="password">{{ lang.translations().registerPassword }}</label>
         <input
           type="password"
           id="password"
@@ -143,12 +143,14 @@
           placeholder="••••••••"
         />
         @if (passwordField.invalid && passwordField.touched) {
-          <span class="error-msg">პაროლი მინიმუმ 8 სიმბოლო</span>
+          <span class="error-msg"
+            >{{ lang.translations().registerPassword }} მინიმუმ 8 სიმბოლო</span
+          >
         }
       </div>
 
       <div class="form-group">
-        <label for="confirmPassword">პაროლის დადასტურება</label>
+        <label for="confirmPassword">{{ lang.translations().registerConfirmPassword }}</label>
         <input
           type="password"
           id="confirmPassword"
@@ -159,7 +161,7 @@
           placeholder="••••••••"
         />
         @if (confirmPassword && password !== confirmPassword) {
-          <span class="error-msg">პაროლები არ ემთხვევა</span>
+          <span class="error-msg">{{ lang.translations().registerError }}</span>
         }
       </div>
 
@@ -168,13 +170,12 @@
       }
 
       <button type="submit" [disabled]="isLoading() || registerForm.invalid">
-        {{ isLoading() ? 'იტვირთება...' : 'რეგისტრაცია' }}
+        {{ isLoading() ? lang.translations().registerLoading : lang.translations().registerBtn }}
       </button>
     </form>
 
     <p class="switch-link">
-      უკვე გაქვს ანგარიში?
-      <a routerLink="/login">შესვლა</a>
+      <a routerLink="/login">{{ lang.translations().registerSwitch }}</a>
     </p>
   </div>
 </div>

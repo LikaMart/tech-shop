@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { LanguageService } from '../../core/services/language';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { AuthService } from '../../core/services/auth';
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  lang = inject(LanguageService);
 
   email = '';
   password = '';
@@ -21,7 +23,7 @@ export class LoginComponent {
 
   submit() {
     if (!this.email || !this.password) {
-      this.error.set('გთხოვთ შეავსოთ ყველა ველი');
+      this.error.set(this.lang.translations().loginError);
       return;
     }
 
@@ -31,7 +33,7 @@ export class LoginComponent {
     this.auth.signIn({ email: this.email, password: this.password }).subscribe({
       next: () => this.router.navigate(['/home']),
       error: () => {
-        this.error.set('არასწორი მეილი ან პაროლი');
+        this.error.set(this.lang.translations().loginError);
         this.isLoading.set(false);
       }
     });

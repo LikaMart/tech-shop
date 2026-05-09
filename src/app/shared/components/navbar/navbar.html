@@ -10,16 +10,22 @@
     </label>
 
     <ul class="nav-links">
-      <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">მთავარი</a></li>
-      <li><a routerLink="/about" routerLinkActive="active">ჩვენს შესახებ</a></li>
+      <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ lang.translations().home }}</a></li>
+      <li><a routerLink="/about" routerLinkActive="active">{{ lang.translations().about }}</a></li>
 
       @if (auth.isLoggedIn()) {
-        <li><a routerLink="/cart" routerLinkActive="active">🛒 კალათა ({{ cart.totalItems() }})</a></li>
-        <li><button (click)="auth.signOut()">გასვლა</button></li>
+        <li><a routerLink="/cart" routerLinkActive="active">🛒 {{ lang.translations().cart }} ({{ cart.totalItems() }})</a></li>
+        <li><button (click)="auth.signOut()">{{ lang.translations().logout }}</button></li>
       } @else {
-        <li><a routerLink="/login" routerLinkActive="active">შესვლა</a></li>
-        <li><a routerLink="/register" routerLinkActive="active" class="btn-primary">რეგისტრაცია</a></li>
+        <li><a routerLink="/login" routerLinkActive="active">{{ lang.translations().login }}</a></li>
+        <li><a routerLink="/register" routerLinkActive="active" class="btn-primary">{{ lang.translations().register }}</a></li>
       }
+
+      <li>
+        <button class="lang-btn" (click)="lang.toggle()">
+          {{ lang.currentLang() === 'ka' ? '🇬🇧 EN' : '🇬🇪 KA' }}
+        </button>
+      </li>
     </ul>
   </div>
 </nav>

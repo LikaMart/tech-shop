@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { LanguageService } from '../../core/services/language';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ import { AuthService } from '../../core/services/auth';
 export class RegisterComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  lang = inject(LanguageService);
 
   firstName = '';
   lastName = '';
@@ -29,44 +31,36 @@ export class RegisterComponent {
   isLoading = signal<boolean>(false);
 
   submit() {
-    if (
-      !this.firstName ||
-      !this.lastName ||
-      !this.email ||
-      !this.password ||
-      !this.confirmPassword
-    ) {
-      this.error.set('გთხოვთ შეავსოთ ყველა ველი');
+    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPassword) {
+      this.error.set(this.lang.translations().registerError);
       return;
     }
 
     if (this.password !== this.confirmPassword) {
-      this.error.set('პაროლები არ ემთხვევა');
+      this.error.set(this.lang.translations().registerError);
       return;
     }
 
     this.isLoading.set(true);
     this.error.set('');
 
-    this.auth
-      .signUp({
-        email: this.email,
-        password: this.password,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        age: this.age,
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + this.email,
-        address: this.address,
-        phone: this.phone,
-        zipcode: this.zipcode,
-        gender: this.gender,
-      })
-      .subscribe({
-        next: () => this.router.navigate(['/home']),
-        error: () => {
-          this.error.set('რეგისტრაცია ვერ მოხერხდა');
-          this.isLoading.set(false);
-        },
-      });
+    this.auth.signUp({
+      email: this.email,
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      age: this.age,
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + this.email,
+      address: this.address,
+      phone: this.phone,
+      zipcode: this.zipcode,
+      gender: this.gender,
+    }).subscribe({
+      next: () => this.router.navigate(['/home']),
+      error: () => {
+        this.error.set(this.lang.translations().registerError);
+        this.isLoading.set(false);
+      },
+    });
   }
 }

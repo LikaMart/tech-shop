@@ -1,11 +1,11 @@
 <div class="login-wrapper">
   <div class="login-card">
-    <h2>შესვლა</h2>
-    <p class="subtitle">გამარჯობა! შედი შენს ანგარიშზე</p>
+    <h2>{{ lang.translations().loginTitle }}</h2>
+    <p class="subtitle">{{ lang.translations().loginSubtitle }}</p>
 
     <form #loginForm="ngForm" (ngSubmit)="submit()">
       <div class="form-group">
-        <label for="email">მეილი</label>
+        <label for="email">{{ lang.translations().loginEmail }}</label>
         <input
           type="email"
           id="email"
@@ -17,12 +17,12 @@
           placeholder="example@gmail.com"
         />
         @if (emailField.invalid && emailField.touched) {
-          <span class="error-msg">სწორი მეილი შეიყვანეთ</span>
+          <span class="error-msg">{{ lang.translations().loginEmailError }}</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="password">პაროლი</label>
+        <label for="password">{{ lang.translations().loginPassword }}</label>
         <input
           type="password"
           id="password"
@@ -33,7 +33,7 @@
           placeholder="••••••••"
         />
         @if (passwordField.invalid && passwordField.touched) {
-          <span class="error-msg">პაროლი სავალდებულოა</span>
+          <span class="error-msg">{{ lang.translations().loginPasswordError }}</span>
         }
       </div>
 
@@ -42,13 +42,12 @@
       }
 
       <button type="submit" [disabled]="isLoading() || loginForm.invalid">
-        {{ isLoading() ? 'იტვირთება...' : 'შესვლა' }}
+        {{ isLoading() ? lang.translations().loginLoading : lang.translations().loginBtn }}
       </button>
     </form>
 
     <p class="switch-link">
-      ანგარიში არ გაქვს?
-      <a routerLink="/register">დარეგისტრირდი</a>
+      <a routerLink="/register">{{ lang.translations().loginSwitch }}</a>
     </p>
   </div>
 </div>

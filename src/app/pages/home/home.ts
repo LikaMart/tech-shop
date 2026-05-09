@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { GelPipe } from '../../shared/pipes/gel-pipe';
 import { signal } from '@angular/core';
 import { map, catchError, of } from 'rxjs';
+import { LanguageService } from '../../core/services/language';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import { map, catchError, of } from 'rxjs';
 export class HomeComponent {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  lang = inject(LanguageService);
 
   error = signal<string>('');
 

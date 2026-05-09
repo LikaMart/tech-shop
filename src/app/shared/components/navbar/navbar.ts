@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
 import { CartService } from '../../../core/services/cart';
+import { LanguageService } from '../../../core/services/language';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import { CartService } from '../../../core/services/cart';
 export class NavbarComponent {
   auth = inject(AuthService);
   cart = inject(CartService);
+  lang = inject(LanguageService);
   isMenuOpen = signal(false);
 
   toggleMenu() {

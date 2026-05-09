@@ -1,6 +1,6 @@
 <div class="cart-page">
   <div class="container">
-    <h1 class="page-title">კალათა 🛒</h1>
+    <h1 class="page-title">{{ lang.translations().cartTitle }}</h1>
 
     @if (cartService.cart()) {
       <div class="cart-content">
@@ -8,31 +8,34 @@
           @for (item of cartService.cart()!.products; track item.productId) {
             <div class="cart-item">
               <div class="item-info">
-                <p class="item-id">პროდუქტი: {{ item.productId }}</p>
-                <p class="item-qty">რაოდენობა: {{ item.quantity }}</p>
-                <p class="item-price">ფასი: {{ item.pricePerQuantity | gel }}</p>
+                <p class="item-id">ID: {{ item.productId }}</p>
+                <p class="item-qty">{{ lang.translations().cartQuantity }}: {{ item.quantity }}</p>
+                <p class="item-price">
+                  {{ lang.translations().cartPrice }}: {{ item.pricePerQuantity | gel }}
+                </p>
               </div>
               <button class="remove-btn" (click)="removeItem(item.productId)">
-                🗑️ წაშლა
+                {{ lang.translations().cartRemove }}
               </button>
             </div>
           } @empty {
-            <p class="empty">კალათა ცარიელია</p>
+            <p class="empty">{{ lang.translations().cartEmpty }}</p>
           }
         </div>
 
         <div class="cart-summary">
-          <h3>სულ</h3>
-          <p>პროდუქტები: {{ cartService.cart()!.total.products }}</p>
-          <p>რაოდენობა: {{ cartService.cart()!.total.quantity }}</p>
-          <p class="total-price">ჯამი: {{ cartService.cart()!.total.price.current | gel }}</p>
-          <button class="checkout-btn" (click)="doCheckout()">შეკვეთა ✅</button>
-          <button class="clear-btn" (click)="clear()">გასუფთავება 🗑️</button>
+          <h3>{{ lang.translations().cartTotal }}</h3>
+          <p>{{ lang.translations().cartQuantity }}: {{ cartService.cart()!.total.quantity }}</p>
+          <p class="total-price">{{ cartService.cart()!.total.price.current | gel }}</p>
+          <button class="checkout-btn" (click)="doCheckout()">
+            {{ lang.translations().cartCheckout }}
+          </button>
+          <button class="clear-btn" (click)="clear()">{{ lang.translations().cartClear }}</button>
         </div>
       </div>
     } @else {
-      <p class="empty">კალათა ცარიელია</p>
-      <a routerLink="/home" class="back-btn">← პროდუქტებზე დაბრუნება</a>
+      <p class="empty">{{ lang.translations().cartEmpty }}</p>
+      <a routerLink="/home" class="back-btn">{{ lang.translations().cartBack }}</a>
     }
   </div>
 </div>
