@@ -10,20 +10,43 @@
     </label>
 
     <ul class="nav-links">
-      <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ lang.translations().home }}</a></li>
-      <li><a routerLink="/about" routerLinkActive="active">{{ lang.translations().about }}</a></li>
+      <li>
+        <a
+          routerLink="/home"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ lang.translations().home }}</a
+        >
+      </li>
+      <li>
+        <a routerLink="/about" routerLinkActive="active">{{ lang.translations().about }}</a>
+      </li>
 
       @if (auth.isLoggedIn()) {
-        <li><a routerLink="/cart" routerLinkActive="active">🛒 {{ lang.translations().cart }} ({{ cart.totalItems() }})</a></li>
-        <li><button (click)="auth.signOut()">{{ lang.translations().logout }}</button></li>
+        <li>
+          <a routerLink="/cart" routerLinkActive="active">
+            <i class="fas fa-shopping-cart"></i> {{ lang.translations().cart }} ({{
+              cart.totalItems()
+            }})
+          </a>
+        </li>
+        <li>
+          <button (click)="auth.signOut()">{{ lang.translations().logout }}</button>
+        </li>
       } @else {
-        <li><a routerLink="/login" routerLinkActive="active">{{ lang.translations().login }}</a></li>
-        <li><a routerLink="/register" routerLinkActive="active" class="btn-primary">{{ lang.translations().register }}</a></li>
+        <li>
+          <a routerLink="/login" routerLinkActive="active">{{ lang.translations().login }}</a>
+        </li>
+        <li>
+          <a routerLink="/register" routerLinkActive="active" class="btn-primary">{{
+            lang.translations().register
+          }}</a>
+        </li>
       }
 
       <li>
-        <button class="lang-btn" (click)="lang.toggle()">
-          {{ lang.currentLang() === 'ka' ? '🇬🇧 EN' : '🇬🇪 KA' }}
+        <button class="lang-btn" (click)="lang.toggle()" title="Switch language">
+          <i class="fas fa-globe"></i> {{ lang.currentLang() === 'ka' ? 'EN' : 'KA' }}
         </button>
       </li>
     </ul>

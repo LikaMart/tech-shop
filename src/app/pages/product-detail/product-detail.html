@@ -1,1 +1,149 @@
-<p>product-detail works!</p>
+<div class="product-detail-page">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a routerLink="/home"> <i class="fas fa-home"></i> Home </a>
+      <span>
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span>Product Details</span>
+    </div>
+
+    @if (loading()) {
+      <div class="loading-state">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading product details...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error-state">
+        <i class="fas fa-exclamation-circle"></i>
+        <p>{{ error() }}</p>
+        <a routerLink="/home" class="btn-back">
+          <i class="fas fa-arrow-left"></i> Back to Products
+        </a>
+      </div>
+    } @else if (product()) {
+      <div class="product-detail-content">
+        <!-- Product Images Section -->
+        <div class="product-images">
+          <div class="main-image">
+            <img [src]="selectedImage()" [alt]="product()!.title" />
+            @if (product()!.price.discountPercentage > 0) {
+              <div class="discount-badge">
+                <i class="fas fa-tag"></i> -{{ product()!.price.discountPercentage }}%
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Product Info Section -->
+        <div class="product-info">
+          <!-- Category & Rating -->
+          <div class="product-meta">
+            <span class="category-tag">{{ product()!.category.name }}</span>
+            <div class="rating-section">
+              <i class="fas fa-star"></i>
+              <span class="rating-value">{{ product()!.rating }}</span>
+              <span class="rating-count">(Customer Rating)</span>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <h1 class="product-title">{{ product()!.title }}</h1>
+
+          <!-- Brand -->
+          <p class="product-brand"><i class="fas fa-industry"></i> {{ product()!.brand }}</p>
+
+          <!-- Price Section -->
+          <div class="price-section">
+            <div class="price-display">
+              <span class="current-price">{{ product()!.price.current | gel }}</span>
+              @if (product()!.price.discountPercentage > 0) {
+                <span class="original-price">
+                  {{ product()!.price.beforeDiscount | gel }}
+                </span>
+              }
+            </div>
+            @if (product()!.price.discountPercentage > 0) {
+              <div class="savings">
+                <i class="fas fa-check-circle"></i>
+                Save {{ product()!.price.beforeDiscount - product()!.price.current | gel }} ({{
+                  product()!.price.discountPercentage
+                }}% off)
+              </div>
+            }
+          </div>
+
+          <!-- Description -->
+          @if (product()!.description) {
+            <div class="product-description">
+              <h3>Description</h3>
+              <p>{{ product()!.description }}</p>
+            </div>
+          }
+
+          <!-- Quantity & Add to Cart -->
+          <div class="action-section">
+            <div class="quantity-selector">
+              <button (click)="decrementQuantity()" class="qty-btn">
+                <i class="fas fa-minus"></i>
+              </button>
+              <input type="number" [(ngModel)]="quantity" class="qty-input" min="1" />
+              <button (click)="incrementQuantity()" class="qty-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <button (click)="addToCart()" class="btn-add-to-cart-large">
+              <i class="fas fa-shopping-cart"></i>
+              @if (addedToCart()) {
+                <span> <i class="fas fa-check"></i> Added to Cart! </span>
+              } @else {
+                <span>Add to Cart</span>
+              }
+            </button>
+          </div>
+
+          <!-- Product Info List -->
+          <div class="product-details-list">
+            <h3>Product Information</h3>
+            <ul>
+              <li>
+                <span class="label"> <i class="fas fa-cube"></i> Category </span>
+                <span class="value">{{ product()!.category.name }}</span>
+              </li>
+              <li>
+                <span class="label"> <i class="fas fa-industry"></i> Brand </span>
+                <span class="value">{{ product()!.brand }}</span>
+              </li>
+              <li>
+                <span class="label"> <i class="fas fa-star"></i> Rating </span>
+                <span class="value">{{ product()!.rating }} / 5</span>
+              </li>
+              <li>
+                <span class="label"> <i class="fas fa-tag"></i> Discount </span>
+                <span class="value">{{ product()!.price.discountPercentage }}% OFF</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Features -->
+          <div class="features">
+            <div class="feature">
+              <i class="fas fa-truck-fast"></i>
+              <span>Free Shipping</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-shield-alt"></i>
+              <span>Secure Payment</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-arrow-rotate-left"></i>
+              <span>Easy Returns</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
