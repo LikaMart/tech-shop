@@ -2,6 +2,7 @@ import { Component, inject, signal, effect } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService, Product } from '../../core/services/product';
 import { CartService } from '../../core/services/cart';
+import { LanguageService } from '../../core/services/language';
 import { GelPipe } from '../../shared/pipes/gel-pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ export class ProductDetailComponent {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  lang = inject(LanguageService);
 
   product = signal<Product | null>(null);
   loading = signal(true);
@@ -45,12 +47,12 @@ export class ProductDetailComponent {
           this.product.set(foundProduct);
           this.selectedImage.set(foundProduct.thumbnail);
         } else {
-          this.error.set('Product not found');
+          this.error.set(this.lang.translations().productNotFound);
         }
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('Failed to load product');
+        this.error.set(this.lang.translations().failedToLoadProduct);
         this.loading.set(false);
       },
     });

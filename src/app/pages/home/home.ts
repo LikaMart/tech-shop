@@ -30,7 +30,7 @@ export class HomeComponent {
     this.productService.getAll().pipe(
       map((res) => res.products),
       catchError(() => {
-        this.error.set('პროდუქტები ვერ ჩაიტვირთა');
+        this.error.set(this.lang.translations().error);
         return of([]);
       }),
     ),

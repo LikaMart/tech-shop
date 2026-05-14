@@ -1,23 +1,25 @@
 <div class="home">
   <div class="hero-section">
     <div class="hero-content">
-      <div class="hero-badge"><i class="fas fa-sparkles"></i> Premium Tech Store</div>
-      <h1 class="hero-title">Welcome to <span>TechShop</span></h1>
+      <div class="hero-badge">
+        <i class="fas fa-sparkles"></i> {{ lang.translations().heroStoreTag }}
+      </div>
+      <h1 class="hero-title">{{ lang.translations().heroTitle }} <span>TechShop</span></h1>
       <p class="hero-subtitle">
-        Discover cutting-edge technology products with the best prices and quality guarantee
+        {{ lang.translations().heroSubtitle }}
       </p>
       <div class="hero-features">
         <div class="feature-item">
           <span class="feature-icon"><i class="fas fa-truck"></i></span>
-          <span>Fast Delivery</span>
+          <span>{{ lang.translations().heroFastDelivery }}</span>
         </div>
         <div class="feature-item">
           <span class="feature-icon"><i class="fas fa-shield-alt"></i></span>
-          <span>Secure Payment</span>
+          <span>{{ lang.translations().heroSecurePayment }}</span>
         </div>
         <div class="feature-item">
           <span class="feature-icon"><i class="fas fa-star"></i></span>
-          <span>Best Quality</span>
+          <span>{{ lang.translations().heroBestQuality }}</span>
         </div>
       </div>
     </div>
@@ -39,7 +41,7 @@
           <input
             type="text"
             class="search-bar"
-            placeholder="Search products, brands, categories..."
+            [placeholder]="lang.translations().searchPlaceholder"
             [(ngModel)]="searchQuery"
           />
           @if (searchQuery()) {
@@ -52,7 +54,7 @@
         <div class="filters-wrapper">
           <div class="filter-group">
             <select [(ngModel)]="selectedCategory" class="filter-select">
-              <option value="">All Categories</option>
+              <option value="">{{ lang.translations().allCategories }}</option>
               @for (category of categories; track category) {
                 <option [value]="category">{{ category }}</option>
               }
@@ -61,16 +63,16 @@
 
           <div class="filter-group">
             <select [(ngModel)]="sortBy" class="filter-select">
-              <option value="popular">Most Popular</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="discount">Highest Discount</option>
+              <option value="popular">{{ lang.translations().sortMostPopular }}</option>
+              <option value="price-low">{{ lang.translations().sortPriceLow }}</option>
+              <option value="price-high">{{ lang.translations().sortPriceHigh }}</option>
+              <option value="discount">{{ lang.translations().sortHighestDiscount }}</option>
             </select>
           </div>
 
           @if (searchQuery() || selectedCategory()) {
             <button class="btn-clear-all" (click)="clearFilters()">
-              <i class="fas fa-redo"></i> Clear All
+              <i class="fas fa-redo"></i> {{ lang.translations().clearAll }}
             </button>
           }
         </div>
@@ -79,9 +81,8 @@
       <!-- Results Info -->
       @if (!error() && filteredProducts.length > 0) {
         <div class="results-info">
-          Found <strong>{{ filteredProducts.length }}</strong> product{{
-            filteredProducts.length !== 1 ? 's' : ''
-          }}
+          {{ lang.translations().resultsFound }} <strong>{{ filteredProducts.length }}</strong>
+          {{ lang.translations().resultsProduct }}{{ filteredProducts.length !== 1 ? 's' : '' }}
         </div>
       }
 
@@ -96,8 +97,10 @@
       } @else if (filteredProducts.length === 0) {
         <div class="no-results">
           <i class="fas fa-search"></i>
-          <p>No products found matching your criteria</p>
-          <button class="btn-reset" (click)="clearFilters()">Reset Filters</button>
+          <p>{{ lang.translations().noProductsFound }}</p>
+          <button class="btn-reset" (click)="clearFilters()">
+            {{ lang.translations().resetFilters }}
+          </button>
         </div>
       } @else {
         <div class="products-grid">
@@ -107,7 +110,7 @@
                 <img [src]="product.thumbnail" [alt]="product.title" />
                 <div class="card-overlay">
                   <a [routerLink]="['/product', product._id]" class="btn-view-details">
-                    <i class="fas fa-eye"></i> View Details
+                    <i class="fas fa-eye"></i> {{ lang.translations().viewDetails }}
                   </a>
                 </div>
                 @if (product.price.discountPercentage > 0) {

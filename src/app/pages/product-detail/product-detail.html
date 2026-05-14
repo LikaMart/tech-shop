@@ -2,24 +2,24 @@
   <div class="container">
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-      <a routerLink="/home"> <i class="fas fa-home"></i> Home </a>
+      <a routerLink="/home"> <i class="fas fa-home"></i> {{ lang.translations().home }} </a>
       <span>
         <i class="fas fa-chevron-right"></i>
       </span>
-      <span>Product Details</span>
+      <span>{{ lang.translations().productDetailsTitle }}</span>
     </div>
 
     @if (loading()) {
       <div class="loading-state">
         <i class="fas fa-spinner fa-spin"></i>
-        <p>Loading product details...</p>
+        <p>{{ lang.translations().productDetailsLoading }}</p>
       </div>
     } @else if (error()) {
       <div class="error-state">
         <i class="fas fa-exclamation-circle"></i>
         <p>{{ error() }}</p>
         <a routerLink="/home" class="btn-back">
-          <i class="fas fa-arrow-left"></i> Back to Products
+          <i class="fas fa-arrow-left"></i> {{ lang.translations().backToProducts }}
         </a>
       </div>
     } @else if (product()) {
@@ -44,7 +44,7 @@
             <div class="rating-section">
               <i class="fas fa-star"></i>
               <span class="rating-value">{{ product()!.rating }}</span>
-              <span class="rating-count">(Customer Rating)</span>
+              <span class="rating-count">({{ lang.translations().customerRating }})</span>
             </div>
           </div>
 
@@ -67,9 +67,10 @@
             @if (product()!.price.discountPercentage > 0) {
               <div class="savings">
                 <i class="fas fa-check-circle"></i>
-                Save {{ product()!.price.beforeDiscount - product()!.price.current | gel }} ({{
+                {{ lang.translations().save }}
+                {{ product()!.price.beforeDiscount - product()!.price.current | gel }} ({{
                   product()!.price.discountPercentage
-                }}% off)
+                }}{{ lang.translations().percentOff }})
               </div>
             }
           </div>
@@ -77,7 +78,7 @@
           <!-- Description -->
           @if (product()!.description) {
             <div class="product-description">
-              <h3>Description</h3>
+              <h3>{{ lang.translations().productDescription }}</h3>
               <p>{{ product()!.description }}</p>
             </div>
           }
@@ -97,32 +98,45 @@
             <button (click)="addToCart()" class="btn-add-to-cart-large">
               <i class="fas fa-shopping-cart"></i>
               @if (addedToCart()) {
-                <span> <i class="fas fa-check"></i> Added to Cart! </span>
+                <span> <i class="fas fa-check"></i> {{ lang.translations().addedToCart }} </span>
               } @else {
-                <span>Add to Cart</span>
+                <span>{{ lang.translations().addToCart }}</span>
               }
             </button>
           </div>
 
           <!-- Product Info List -->
           <div class="product-details-list">
-            <h3>Product Information</h3>
+            <h3>{{ lang.translations().productInformation }}</h3>
             <ul>
               <li>
-                <span class="label"> <i class="fas fa-cube"></i> Category </span>
+                <span class="label">
+                  <i class="fas fa-cube"></i> {{ lang.translations().productCategory }}
+                </span>
                 <span class="value">{{ product()!.category.name }}</span>
               </li>
               <li>
-                <span class="label"> <i class="fas fa-industry"></i> Brand </span>
+                <span class="label">
+                  <i class="fas fa-industry"></i> {{ lang.translations().productBrand }}
+                </span>
                 <span class="value">{{ product()!.brand }}</span>
               </li>
               <li>
-                <span class="label"> <i class="fas fa-star"></i> Rating </span>
-                <span class="value">{{ product()!.rating }} / 5</span>
+                <span class="label">
+                  <i class="fas fa-star"></i> {{ lang.translations().productRating }}
+                </span>
+                <span class="value"
+                  >{{ product()!.rating }} {{ lang.translations().ratingOutOf5 }}</span
+                >
               </li>
               <li>
-                <span class="label"> <i class="fas fa-tag"></i> Discount </span>
-                <span class="value">{{ product()!.price.discountPercentage }}% OFF</span>
+                <span class="label">
+                  <i class="fas fa-tag"></i> {{ lang.translations().productDiscount }}
+                </span>
+                <span class="value"
+                  >{{ product()!.price.discountPercentage
+                  }}{{ lang.translations().percentOff }}</span
+                >
               </li>
             </ul>
           </div>
@@ -131,15 +145,15 @@
           <div class="features">
             <div class="feature">
               <i class="fas fa-truck-fast"></i>
-              <span>Free Shipping</span>
+              <span>{{ lang.translations().freeShipping }}</span>
             </div>
             <div class="feature">
               <i class="fas fa-shield-alt"></i>
-              <span>Secure Payment</span>
+              <span>{{ lang.translations().securePayment }}</span>
             </div>
             <div class="feature">
               <i class="fas fa-arrow-rotate-left"></i>
-              <span>Easy Returns</span>
+              <span>{{ lang.translations().easyReturns }}</span>
             </div>
           </div>
         </div>

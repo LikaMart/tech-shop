@@ -66,6 +66,56 @@ export interface Translations {
   footerNav: string;
   footerContact: string;
   footerCopy: string;
+  heroStoreTag: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  heroFastDelivery: string;
+  heroSecurePayment: string;
+  heroBestQuality: string;
+  searchPlaceholder: string;
+  allCategories: string;
+  sortMostPopular: string;
+  sortPriceLow: string;
+  sortPriceHigh: string;
+  sortHighestDiscount: string;
+  clearAll: string;
+  resultsFound: string;
+  resultsProduct: string;
+  noProductsFound: string;
+  resetFilters: string;
+  viewDetails: string;
+  productDetailsTitle: string;
+  productDetailsLoading: string;
+  backToProducts: string;
+  customerRating: string;
+  productDescription: string;
+  save: string;
+  percentOff: string;
+  addedToCart: string;
+  fieldRequired: string;
+  minAge: string;
+  minPassword: string;
+  registerFirstNameRequired: string;
+  registerLastNameRequired: string;
+  registerPhoneRequired: string;
+  registerAddressRequired: string;
+  registerZipcodeRequired: string;
+  registerPasswordRequired: string;
+  notFoundTitle: string;
+  notFoundMessage: string;
+  goHome: string;
+  productCardsWorking: string;
+  productCategory: string;
+  productBrand: string;
+  productRating: string;
+  productDiscount: string;
+  freeShipping: string;
+  securePayment: string;
+  easyReturns: string;
+  productNotFound: string;
+  failedToLoadProduct: string;
+  ratingOutOf5: string;
+  productInformation: string;
 }
 
 const ka: Translations = {
@@ -84,7 +134,8 @@ const ka: Translations = {
   aboutTitle: 'ჩვენს შესახებ',
   aboutSubtitle: 'TechShop — საქართველოს წამყვანი ტექნიკის მაღაზია',
   aboutProducts: 'პროდუქტები',
-  aboutProductsDesc: 'გთავაზობთ უახლეს ლეპტოპებს, სმარტფონებს და სხვა ელექტრონიკას საუკეთესო ფასებად.',
+  aboutProductsDesc:
+    'გთავაზობთ უახლეს ლეპტოპებს, სმარტფონებს და სხვა ელექტრონიკას საუკეთესო ფასებად.',
   aboutDelivery: 'მიწოდება',
   aboutDeliveryDesc: 'სწრაფი და საიმედო მიწოდება საქართველოს ნებისმიერ კუთხეში.',
   aboutWarranty: 'გარანტია',
@@ -131,7 +182,57 @@ const ka: Translations = {
   footerTagline: 'საუკეთესო ტექნიკა საუკეთესო ფასად',
   footerNav: 'ნავიგაცია',
   footerContact: 'კონტაქტი',
-  footerCopy: '© 2024 TechShop. ყველა უფლება დაცულია.'
+  footerCopy: '© 2024 TechShop. ყველა უფლება დაცულია.',
+  heroStoreTag: 'პრემიუმ ტექნიკის მაღაზია',
+  heroTitle: 'მოგესალმებთ TechShop-ში',
+  heroSubtitle: 'აღმოაჩინეთ ხელმისაწვდომი ტექნიკა საუკეთესო ფასებითა და ხარისხის გარანტიით',
+  heroFastDelivery: 'სწრაფი მიწოდება',
+  heroSecurePayment: 'უსაფრთხო გადახდა',
+  heroBestQuality: 'საუკეთესო ხარისხი',
+  searchPlaceholder: 'ძებნა პროდუქტების, ბრენდების, კატეგორიების...',
+  allCategories: 'ყველა კატეგორია',
+  sortMostPopular: 'ყველაზე პოპულარული',
+  sortPriceLow: 'ფასი: დაბალიდან მაღალი',
+  sortPriceHigh: 'ფასი: მაღალიდან დაბალი',
+  sortHighestDiscount: 'უდიდესი ფასდაკლება',
+  clearAll: 'ყველას გასუფთავება',
+  resultsFound: 'ნაპოვნია',
+  resultsProduct: 'პროდუქტი',
+  noProductsFound: 'პროდუქტი ვერ მოიძებნა თქვენი კრიტერიუმის მიხედვით',
+  resetFilters: 'ფილტრების გადატvirთვა',
+  viewDetails: 'დეტალები',
+  productDetailsTitle: 'პროდუქტის დეტალები',
+  productDetailsLoading: 'პროდუქტის დეტალების ჩატვირთვა...',
+  backToProducts: '← პროდუქტებზე დაბრუნება',
+  customerRating: 'მომხმარებლის შეფასება',
+  productDescription: 'აღწერა',
+  save: 'დაფიქრება',
+  percentOff: '% ფასდაკლება',
+  addedToCart: 'კალათაში დამატებულია!',
+  fieldRequired: 'სავალდებულო',
+  minAge: 'მინ. 18',
+  minPassword: 'მინიმუმ 8 სიმბოლო',
+  registerFirstNameRequired: 'სახელი სავალდებულოა',
+  registerLastNameRequired: 'გვარი სავალდებულოა',
+  registerPhoneRequired: 'ტელეფონი სავალდებულოა',
+  registerAddressRequired: 'მისამართი სავალდებულოა',
+  registerZipcodeRequired: 'საფოსტო კოდი სავალდებულოა',
+  registerPasswordRequired: 'პაროლი მინიმუმ 8 სიმბოლო',
+  notFoundTitle: 'გვერდი ვერ მოიძებნა',
+  notFoundMessage: 'მოკვდილებული ბუტი: 404',
+  goHome: 'მთავარზე დაბრუნება',
+  productCardsWorking: 'პროდუქტის კარტა',
+  productCategory: 'კატეგორია',
+  productBrand: 'ბრენდი',
+  productRating: 'შეფასება',
+  productDiscount: 'ფასდაკლება',
+  freeShipping: 'უფასო მიწოდება',
+  securePayment: 'უსაფრთხო გადახდა',
+  easyReturns: 'მარტივი დაბრუნება',
+  productNotFound: 'პროდუქტი ვერ მოიძებნა',
+  failedToLoadProduct: 'პროდუქტის ჩატვირთვა ვერ მოხერხდა',
+  ratingOutOf5: '/ 5',
+  productInformation: 'პროდუქტის ინფორმაცია',
 };
 
 const en: Translations = {
@@ -150,7 +251,8 @@ const en: Translations = {
   aboutTitle: 'About Us',
   aboutSubtitle: "TechShop — Georgia's leading tech store",
   aboutProducts: 'Products',
-  aboutProductsDesc: 'We offer the latest laptops, smartphones and other electronics at the best prices.',
+  aboutProductsDesc:
+    'We offer the latest laptops, smartphones and other electronics at the best prices.',
   aboutDelivery: 'Delivery',
   aboutDeliveryDesc: 'Fast and reliable delivery anywhere in Georgia.',
   aboutWarranty: 'Warranty',
@@ -197,7 +299,58 @@ const en: Translations = {
   footerTagline: 'Best tech at the best price',
   footerNav: 'Navigation',
   footerContact: 'Contact',
-  footerCopy: '© 2024 TechShop. All rights reserved.'
+  footerCopy: '© 2024 TechShop. All rights reserved.',
+  heroStoreTag: 'Premium Tech Store',
+  heroTitle: 'Welcome to TechShop',
+  heroSubtitle:
+    'Discover cutting-edge technology products with the best prices and quality guarantee',
+  heroFastDelivery: 'Fast Delivery',
+  heroSecurePayment: 'Secure Payment',
+  heroBestQuality: 'Best Quality',
+  searchPlaceholder: 'Search products, brands, categories...',
+  allCategories: 'All Categories',
+  sortMostPopular: 'Most Popular',
+  sortPriceLow: 'Price: Low to High',
+  sortPriceHigh: 'Price: High to Low',
+  sortHighestDiscount: 'Highest Discount',
+  clearAll: 'Clear All',
+  resultsFound: 'Found',
+  resultsProduct: 'product',
+  noProductsFound: 'No products found matching your criteria',
+  resetFilters: 'Reset Filters',
+  viewDetails: 'View Details',
+  productDetailsTitle: 'Product Details',
+  productDetailsLoading: 'Loading product details...',
+  backToProducts: '← Back to Products',
+  customerRating: 'Customer Rating',
+  productDescription: 'Description',
+  save: 'Save',
+  addedToCart: 'Added to Cart!',
+  fieldRequired: 'is required',
+  minAge: 'Min. 18',
+  minPassword: 'Minimum 8 characters',
+  registerFirstNameRequired: 'First Name is required',
+  registerLastNameRequired: 'Last Name is required',
+  registerPhoneRequired: 'Phone is required',
+  registerAddressRequired: 'Address is required',
+  registerZipcodeRequired: 'Zip Code is required',
+  registerPasswordRequired: 'Password minimum 8 characters',
+  notFoundTitle: 'Page Not Found',
+  notFoundMessage: 'Oops! 404 - Page not found',
+  goHome: 'Go to Home',
+  productCardsWorking: 'Product Card',
+  productCategory: 'Category',
+  productBrand: 'Brand',
+  productRating: 'Rating',
+  productDiscount: 'Discount',
+  freeShipping: 'Free Shipping',
+  securePayment: 'Secure Payment',
+  easyReturns: 'Easy Returns',
+  productNotFound: 'Product not found',
+  failedToLoadProduct: 'Failed to load product',
+  ratingOutOf5: '/ 5',
+  percentOff: '% OFF',
+  productInformation: 'Product Information',
 };
 
 @Injectable({ providedIn: 'root' })

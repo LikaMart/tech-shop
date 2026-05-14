@@ -2,28 +2,34 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-logo">
-        <h3> TechShop</h3>
-        <p>საუკეთესო ტექნიკა საუკეთესო ფასად</p>
+        <h3>TechShop</h3>
+        <p>{{ lang.translations().footerTagline }}</p>
       </div>
 
       <div class="footer-links">
-        <h4>ნავიგაცია</h4>
+        <h4>{{ lang.translations().footerNav }}</h4>
         <ul>
-          <li><a routerLink="/home">მთავარი</a></li>
-          <li><a routerLink="/about">ჩვენს შესახებ</a></li>
-          <li><a routerLink="/cart">კალათა</a></li>
+          <li>
+            <a routerLink="/home">{{ lang.translations().home }}</a>
+          </li>
+          <li>
+            <a routerLink="/about">{{ lang.translations().about }}</a>
+          </li>
+          <li>
+            <a routerLink="/cart">{{ lang.translations().cart }}</a>
+          </li>
         </ul>
       </div>
 
       <div class="footer-contact">
-        <h4>კონტაქტი</h4>
+        <h4>{{ lang.translations().footerContact }}</h4>
         <p>📧 info@techshop.ge</p>
         <p>📞 +995 555 123 456</p>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© 2024 TechShop. ყველა უფლება დაცულია.</p>
+      <p>{{ lang.translations().footerCopy }}</p>
     </div>
   </div>
 </footer>

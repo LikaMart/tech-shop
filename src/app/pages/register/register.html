@@ -17,7 +17,10 @@
             [placeholder]="lang.translations().registerFirstName"
           />
           @if (firstNameField.invalid && firstNameField.touched) {
-            <span class="error-msg">{{ lang.translations().registerFirstName }} სავალდებულოა</span>
+            <span class="error-msg"
+              >{{ lang.translations().registerFirstName }}
+              {{ lang.translations().fieldRequired }}</span
+            >
           }
         </div>
 
@@ -33,7 +36,10 @@
             [placeholder]="lang.translations().registerLastName"
           />
           @if (lastNameField.invalid && lastNameField.touched) {
-            <span class="error-msg">{{ lang.translations().registerLastName }} სავალდებულოა</span>
+            <span class="error-msg"
+              >{{ lang.translations().registerLastName }}
+              {{ lang.translations().fieldRequired }}</span
+            >
           }
         </div>
       </div>
@@ -69,7 +75,7 @@
             placeholder="18"
           />
           @if (ageField.invalid && ageField.touched) {
-            <span class="error-msg">მინ. 18</span>
+            <span class="error-msg">{{ lang.translations().minAge }}</span>
           }
         </div>
 
@@ -94,7 +100,9 @@
           placeholder="+995555123456"
         />
         @if (phoneField.invalid && phoneField.touched) {
-          <span class="error-msg">{{ lang.translations().registerPhone }} სავალდებულოა</span>
+          <span class="error-msg"
+            >{{ lang.translations().registerPhone }} {{ lang.translations().fieldRequired }}</span
+          >
         }
       </div>
 
@@ -110,7 +118,9 @@
           placeholder="თბილისი, რუსთაველის 1"
         />
         @if (addressField.invalid && addressField.touched) {
-          <span class="error-msg">{{ lang.translations().registerAddress }} სავალდებულოა</span>
+          <span class="error-msg"
+            >{{ lang.translations().registerAddress }} {{ lang.translations().fieldRequired }}</span
+          >
         }
       </div>
 
@@ -126,7 +136,9 @@
           placeholder="0101"
         />
         @if (zipcodeField.invalid && zipcodeField.touched) {
-          <span class="error-msg">{{ lang.translations().registerZipcode }} სავალდებულოა</span>
+          <span class="error-msg"
+            >{{ lang.translations().registerZipcode }} {{ lang.translations().fieldRequired }}</span
+          >
         }
       </div>
 
@@ -143,9 +155,7 @@
           placeholder="••••••••"
         />
         @if (passwordField.invalid && passwordField.touched) {
-          <span class="error-msg"
-            >{{ lang.translations().registerPassword }} მინიმუმ 8 სიმბოლო</span
-          >
+          <span class="error-msg">{{ lang.translations().registerPasswordRequired }}</span>
         }
       </div>
 

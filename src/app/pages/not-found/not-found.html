@@ -1,1 +1,12 @@
-<p>not-found works!</p>
+<div class="not-found-page">
+  <div class="container">
+    <div class="not-found-content">
+      <div class="error-code">404</div>
+      <h1>{{ lang.translations().notFoundTitle }}</h1>
+      <p>{{ lang.translations().notFoundMessage }}</p>
+      <a routerLink="/home" class="btn-home">
+        <i class="fas fa-home"></i> {{ lang.translations().goHome }}
+      </a>
+    </div>
+  </div>
+</div>
