@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { NotFoundComponent } from './not-found';
+import { provideRouter } from '@angular/router';
 
-import { NotFound } from './not-found';
-
-describe('NotFound', () => {
-  let component: NotFound;
-  let fixture: ComponentFixture<NotFound>;
-
+describe('NotFoundComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotFound],
+      imports: [NotFoundComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
-
-    fixture = TestBed.createComponent(NotFound);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(NotFoundComponent);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

@@ -1,0 +1,42 @@
+<div class="contact-page">
+  <div class="contact-hero">
+    <h1>📬 დაგვიკავშირდი</h1>
+    <p>ნებისმიერი კითხვისთვის ჩვენ აქ ვართ</p>
+  </div>
+
+  <div class="container">
+    @if (sent()) {
+      <div class="success-msg">✅ შეტყობინება გაიგზავნა! მადლობა!</div>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="submit()" class="contact-form">
+        <div class="form-group">
+          <label>სახელი</label>
+          <input type="text" formControlName="name" placeholder="შენი სახელი" />
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <span class="error-msg">სახელი სავალდებულოა</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>მეილი</label>
+          <input type="email" formControlName="email" placeholder="example@gmail.com" />
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <span class="error-msg">სწორი მეილი შეიყვანე</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>შეტყობინება</label>
+          <textarea formControlName="message" rows="5" placeholder="შეტყობინება..."></textarea>
+          @if (form.get('message')?.invalid && form.get('message')?.touched) {
+            <span class="error-msg">მინიმუმ 10 სიმბოლო</span>
+          }
+        </div>
+
+        <button type="submit" [disabled]="form.invalid || isLoading()">
+          {{ isLoading() ? 'იგზავნება...' : '📨 გაგზავნა' }}
+        </button>
+      </form>
+    }
+  </div>
+</div>
