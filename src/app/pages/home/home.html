@@ -2,23 +2,21 @@
   <div class="hero-section">
     <div class="hero-content">
       <div class="hero-badge">
-        <i class="fas fa-sparkles"></i> {{ lang.translations().heroStoreTag }}
+        ⚡ {{ lang.translations().heroStoreTag }}
       </div>
       <h1 class="hero-title">{{ lang.translations().heroTitle }} <span>TechShop</span></h1>
-      <p class="hero-subtitle">
-        {{ lang.translations().heroSubtitle }}
-      </p>
+      <p class="hero-subtitle">{{ lang.translations().heroSubtitle }}</p>
       <div class="hero-features">
         <div class="feature-item">
-          <span class="feature-icon"><i class="fas fa-truck"></i></span>
+          <span class="feature-icon">🚚</span>
           <span>{{ lang.translations().heroFastDelivery }}</span>
         </div>
         <div class="feature-item">
-          <span class="feature-icon"><i class="fas fa-shield-alt"></i></span>
+          <span class="feature-icon">🛡️</span>
           <span>{{ lang.translations().heroSecurePayment }}</span>
         </div>
         <div class="feature-item">
-          <span class="feature-icon"><i class="fas fa-star"></i></span>
+          <span class="feature-icon">⭐</span>
           <span>{{ lang.translations().heroBestQuality }}</span>
         </div>
       </div>
@@ -34,10 +32,9 @@
         </div>
       </div>
 
-      <!-- Search and Filter Bar -->
       <div class="filter-section">
         <div class="search-bar-wrapper">
-          <i class="fas fa-search search-icon"></i>
+          <span class="search-icon">🔍</span>
           <input
             type="text"
             class="search-bar"
@@ -45,9 +42,7 @@
             [(ngModel)]="searchQuery"
           />
           @if (searchQuery()) {
-            <button class="clear-search" (click)="searchQuery.set('')" title="Clear search">
-              <i class="fas fa-times"></i>
-            </button>
+            <button class="clear-search" (click)="searchQuery.set('')">✕</button>
           }
         </div>
 
@@ -72,31 +67,27 @@
 
           @if (searchQuery() || selectedCategory()) {
             <button class="btn-clear-all" (click)="clearFilters()">
-              <i class="fas fa-redo"></i> {{ lang.translations().clearAll }}
+              🔄 {{ lang.translations().clearAll }}
             </button>
           }
         </div>
       </div>
 
-      <!-- Results Info -->
       @if (!error() && filteredProducts.length > 0) {
         <div class="results-info">
-          {{ lang.translations().resultsFound }} <strong>{{ filteredProducts.length }}</strong>
-          {{ lang.translations().resultsProduct }}{{ filteredProducts.length !== 1 ? 's' : '' }}
+          {{ lang.translations().resultsFound }}
+          <strong>{{ filteredProducts.length }}</strong>
+          {{ lang.translations().resultsProduct }}
         </div>
       }
 
       @if (error()) {
-        <p class="error-text">
-          <i class="fas fa-exclamation-circle"></i> {{ lang.translations().error }}
-        </p>
+        <p class="error-text">❌ {{ lang.translations().error }}</p>
       } @else if (allProducts().length === 0) {
-        <p class="loading">
-          <i class="fas fa-spinner fa-spin"></i> {{ lang.translations().loading }}
-        </p>
+        <p class="loading">⏳ {{ lang.translations().loading }}</p>
       } @else if (filteredProducts.length === 0) {
         <div class="no-results">
-          <i class="fas fa-search"></i>
+          <p>🔍</p>
           <p>{{ lang.translations().noProductsFound }}</p>
           <button class="btn-reset" (click)="clearFilters()">
             {{ lang.translations().resetFilters }}
@@ -110,7 +101,7 @@
                 <img [src]="product.thumbnail" [alt]="product.title" />
                 <div class="card-overlay">
                   <a [routerLink]="['/product', product._id]" class="btn-view-details">
-                    <i class="fas fa-eye"></i> {{ lang.translations().viewDetails }}
+                    👁️ {{ lang.translations().viewDetails }}
                   </a>
                 </div>
                 @if (product.price.discountPercentage > 0) {
@@ -121,7 +112,7 @@
                 <span class="card-category">{{ product.category.name }}</span>
                 <h3>{{ product.title }}</h3>
                 <p class="brand">{{ product.brand }}</p>
-                <div class="rating"><i class="fas fa-star"></i> {{ product.rating }}</div>
+                <div class="rating">⭐ {{ product.rating }}</div>
                 <div class="price-row">
                   <span class="price">{{ product.price.current | gel }}</span>
                   @if (product.price.discountPercentage > 0) {
@@ -129,7 +120,7 @@
                   }
                 </div>
                 <button class="btn-add-to-cart" (click)="addToCart(product)">
-                  <i class="fas fa-cart-plus"></i> {{ lang.translations().addToCart }}
+                  🛒 {{ lang.translations().addToCart }}
                 </button>
               </div>
             </div>

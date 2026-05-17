@@ -1,3 +1,28 @@
-<div class="product-card-container">
-  <p>{{ lang.translations().productCardsWorking }}</p>
+<div class="product-card">
+  <div class="card-image-wrapper">
+    <img [src]="product.thumbnail" [alt]="product.title" />
+    <div class="card-overlay">
+      <a [routerLink]="['/product', product._id]" class="btn-view-details">
+        👁️ {{ lang.translations().viewDetails }}
+      </a>
+    </div>
+    @if (product.price.discountPercentage > 0) {
+      <div class="badge-discount">-{{ product.price.discountPercentage }}%</div>
+    }
+  </div>
+  <div class="card-body">
+    <span class="card-category">{{ product.category.name }}</span>
+    <h3>{{ product.title }}</h3>
+    <p class="brand">{{ product.brand }}</p>
+    <div class="rating">⭐ {{ product.rating }}</div>
+    <div class="price-row">
+      <span class="price">{{ product.price.current | gel }}</span>
+      @if (product.price.discountPercentage > 0) {
+        <span class="price-old">{{ product.price.beforeDiscount | gel }}</span>
+      }
+    </div>
+    <button class="btn-add-to-cart" (click)="onAddToCart()">
+      🛒 {{ lang.translations().addToCart }}
+    </button>
+  </div>
 </div>
