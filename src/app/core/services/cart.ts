@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 
 export interface CartProduct {
   quantity: number;
@@ -67,6 +67,12 @@ export class CartService {
           this.totalItems.set(res.total.quantity);
         }),
       );
+  }
+
+  addProduct(productId: string, quantity: number = 1) {
+    return this.updateCart(productId, quantity).pipe(
+      catchError(() => this.createCart(productId, quantity)),
+    );
   }
 
   deleteItem(productId: string) {

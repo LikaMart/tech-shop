@@ -1,7 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService, Product } from '../../core/services/product';
 import { CartService } from '../../core/services/cart';
+import { AuthService } from '../../core/services/auth';
 import { LanguageService } from '../../core/services/language';
 import { GelPipe } from '../../shared/pipes/gel-pipe';
 import { CommonModule } from '@angular/common';
@@ -16,8 +17,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private authService = inject(AuthService);
   lang = inject(LanguageService);
 
   product = signal<Product | null>(null);
@@ -73,20 +76,18 @@ export class ProductDetailComponent implements OnInit {
     const currentProduct = this.product();
     if (!currentProduct || currentProduct.stock <= 0) return;
 
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const quantity = this.quantity();
-    this.cartService.updateCart(currentProduct._id, quantity).subscribe({
+    this.cartService.addProduct(currentProduct._id, quantity).subscribe({
       next: () => {
         this.addedToCart.set(true);
         setTimeout(() => this.addedToCart.set(false), 2000);
       },
-      error: () => {
-        this.cartService.createCart(currentProduct._id, quantity).subscribe({
-          next: () => {
-            this.addedToCart.set(true);
-            setTimeout(() => this.addedToCart.set(false), 2000);
-          },
-        });
-      },
+      error: (err) => console.error('Failed to add product to cart', err),
     });
   }
 }

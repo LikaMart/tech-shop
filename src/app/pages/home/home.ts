@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService, Product } from '../../core/services/product';
 import { CartService } from '../../core/services/cart';
-import { RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth';
+import { Router, RouterLink } from '@angular/router';
 import { GelPipe } from '../../shared/pipes/gel-pipe';
 import { signal } from '@angular/core';
 import { map, catchError, of } from 'rxjs';
@@ -19,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
   lang = inject(LanguageService);
 
   error = signal<string>('');
@@ -100,10 +103,15 @@ export class HomeComponent {
   addToCart(product: Product) {
     if (product.stock <= 0) return;
 
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const quantity = 1;
-    this.cartService.updateCart(product._id, quantity).subscribe({
+    this.cartService.addProduct(product._id, quantity).subscribe({
       next: () => console.log('Product added to cart'),
-      error: () => this.cartService.createCart(product._id, quantity).subscribe(),
+      error: (err) => console.error('Failed to add product to cart', err),
     });
   }
 
