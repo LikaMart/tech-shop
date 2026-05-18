@@ -1,9 +1,30 @@
 <div class="register-wrapper">
-  <div class="register-card">
-    <h2>{{ lang.translations().registerTitle }}</h2>
-    <p class="subtitle">{{ lang.translations().registerSubtitle }}</p>
+  <div class="register-shell">
+    <div class="register-panel">
+      <div class="register-header">
+        <span class="eyebrow">{{ lang.translations().registerTitle }}</span>
+        <h1>{{ lang.translations().registerSubtitle }}</h1>
+        <p>{{ lang.translations().registerDescription }}</p>
+      </div>
 
-    <form #registerForm="ngForm" (ngSubmit)="submit()">
+      <div class="register-highlights">
+        <div>
+          <strong>{{ lang.translations().registerSecure }}</strong>
+          <span>{{ lang.translations().registerSecureDesc }}</span>
+        </div>
+        <div>
+          <strong>{{ lang.translations().registerFast }}</strong>
+          <span>{{ lang.translations().registerFastDesc }}</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="register-card" #registerForm="ngForm" (ngSubmit)="submit()">
+      <div class="register-card-header">
+        <h2>{{ lang.translations().createAccount }}</h2>
+        <p>{{ lang.translations().registerFormSubtitle }}</p>
+      </div>
+
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">{{ lang.translations().registerFirstName }}</label>
@@ -14,13 +35,10 @@
             [(ngModel)]="firstName"
             required
             #firstNameField="ngModel"
-            [placeholder]="lang.translations().registerFirstName"
+            placeholder="{{ lang.translations().registerFirstName }}"
           />
           @if (firstNameField.invalid && firstNameField.touched) {
-            <span class="error-msg"
-              >{{ lang.translations().registerFirstName }}
-              {{ lang.translations().fieldRequired }}</span
-            >
+            <span class="error-msg">{{ lang.translations().fieldRequired }}</span>
           }
         </div>
 
@@ -33,13 +51,10 @@
             [(ngModel)]="lastName"
             required
             #lastNameField="ngModel"
-            [placeholder]="lang.translations().registerLastName"
+            placeholder="{{ lang.translations().registerLastName }}"
           />
           @if (lastNameField.invalid && lastNameField.touched) {
-            <span class="error-msg"
-              >{{ lang.translations().registerLastName }}
-              {{ lang.translations().fieldRequired }}</span
-            >
+            <span class="error-msg">{{ lang.translations().fieldRequired }}</span>
           }
         </div>
       </div>
@@ -100,9 +115,7 @@
           placeholder="+995555123456"
         />
         @if (phoneField.invalid && phoneField.touched) {
-          <span class="error-msg"
-            >{{ lang.translations().registerPhone }} {{ lang.translations().fieldRequired }}</span
-          >
+          <span class="error-msg">{{ lang.translations().fieldRequired }}</span>
         }
       </div>
 
@@ -118,45 +131,43 @@
           placeholder="თბილისი, რუსთაველის 1"
         />
         @if (addressField.invalid && addressField.touched) {
-          <span class="error-msg"
-            >{{ lang.translations().registerAddress }} {{ lang.translations().fieldRequired }}</span
-          >
+          <span class="error-msg">{{ lang.translations().fieldRequired }}</span>
         }
       </div>
 
-      <div class="form-group">
-        <label for="zipcode">{{ lang.translations().registerZipcode }}</label>
-        <input
-          type="text"
-          id="zipcode"
-          name="zipcode"
-          [(ngModel)]="zipcode"
-          required
-          #zipcodeField="ngModel"
-          placeholder="0101"
-        />
-        @if (zipcodeField.invalid && zipcodeField.touched) {
-          <span class="error-msg"
-            >{{ lang.translations().registerZipcode }} {{ lang.translations().fieldRequired }}</span
-          >
-        }
-      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zipcode">{{ lang.translations().registerZipcode }}</label>
+          <input
+            type="text"
+            id="zipcode"
+            name="zipcode"
+            [(ngModel)]="zipcode"
+            required
+            #zipcodeField="ngModel"
+            placeholder="0101"
+          />
+          @if (zipcodeField.invalid && zipcodeField.touched) {
+            <span class="error-msg">{{ lang.translations().fieldRequired }}</span>
+          }
+        </div>
 
-      <div class="form-group">
-        <label for="password">{{ lang.translations().registerPassword }}</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          required
-          minlength="8"
-          #passwordField="ngModel"
-          placeholder="••••••••"
-        />
-        @if (passwordField.invalid && passwordField.touched) {
-          <span class="error-msg">{{ lang.translations().registerPasswordRequired }}</span>
-        }
+        <div class="form-group">
+          <label for="password">{{ lang.translations().registerPassword }}</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            minlength="8"
+            #passwordField="ngModel"
+            placeholder="••••••••"
+          />
+          @if (passwordField.invalid && passwordField.touched) {
+            <span class="error-msg">{{ lang.translations().registerPasswordRequired }}</span>
+          }
+        </div>
       </div>
 
       <div class="form-group">
@@ -176,16 +187,21 @@
       </div>
 
       @if (error()) {
-        <p class="error-msg">{{ error() }}</p>
+        <p class="error-msg d-block">{{ error() }}</p>
       }
 
-      <button type="submit" [disabled]="isLoading() || registerForm.invalid">
+      <button
+        type="submit"
+        [disabled]="isLoading() || registerForm.invalid"
+        class="btn-primary-custom"
+      >
         {{ isLoading() ? lang.translations().registerLoading : lang.translations().registerBtn }}
       </button>
-    </form>
 
-    <p class="switch-link">
-      <a routerLink="/login">{{ lang.translations().registerSwitch }}</a>
-    </p>
+      <p class="switch-link">
+        {{ lang.translations().registerAlreadyHaveAccount }}
+        <a routerLink="/login">{{ lang.translations().registerSwitch }}</a>
+      </p>
+    </form>
   </div>
 </div>

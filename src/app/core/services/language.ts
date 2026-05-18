@@ -107,6 +107,14 @@ export interface Translations {
   registerAddressRequired: string;
   registerZipcodeRequired: string;
   registerPasswordRequired: string;
+  registerDescription: string;
+  registerSecure: string;
+  registerSecureDesc: string;
+  registerFast: string;
+  registerFastDesc: string;
+  createAccount: string;
+  registerFormSubtitle: string;
+  registerAlreadyHaveAccount: string;
   notFoundTitle: string;
   notFoundMessage: string;
   goHome: string;
@@ -191,6 +199,15 @@ const ka: Translations = {
   registerLoading: 'იტვირთება...',
   registerSwitch: 'უკვე გაქვს ანგარიში? შესვლა',
   registerError: 'რეგისტრაცია ვერ მოხერხდა',
+  registerDescription:
+    'ჩაწერე შენი მონაცემები და მიიღე სწრაფი წვდომა TechShop-ის საუკეთესო შეთავაზებებზე.',
+  registerSecure: 'უსაფრთხო არჩევანი',
+  registerSecureDesc: 'ყველა ტრანზაქცია დაცულია და პირადი ინფორმაცია არ ინახება.',
+  registerFast: 'სწრაფი რეგისტრაცია',
+  registerFastDesc: 'სამი მარტივი ნაბიჯი წარმატებული ციფრული ანგარიშისთვის.',
+  createAccount: 'ანგარიშის შექმნა',
+  registerFormSubtitle: 'დაეწყეთ თქვენი სამყარო ახალ ტექნოლოგიასთან ერთად.',
+  registerAlreadyHaveAccount: 'უკვე გაქვთ ანგარიში?',
   footerTagline: 'საუკეთესო ტექნიკა საუკეთესო ფასად',
   footerNav: 'ნავიგაცია',
   footerContact: 'კონტაქტი',
@@ -314,6 +331,14 @@ const en: Translations = {
   registerLoading: 'Loading...',
   registerSwitch: 'Already have an account? Login',
   registerError: 'Registration failed',
+  registerDescription: 'Enter your details to unlock faster checkout and personalized offers.',
+  registerSecure: 'Secure choice',
+  registerSecureDesc: 'All transactions are protected and never stored.',
+  registerFast: 'Quick signup',
+  registerFastDesc: 'Three simple steps to get started.',
+  createAccount: 'Create account',
+  registerFormSubtitle: 'Start your journey with modern shopping.',
+  registerAlreadyHaveAccount: 'Already have an account?',
   footerTagline: 'Best tech at the best price',
   footerNav: 'Navigation',
   footerContact: 'Contact',

@@ -1,71 +1,113 @@
-<div class="checkout-container">
-  <!-- Step 1: User Info -->
-  <form [formGroup]="form" *ngIf="step() === 1" class="checkout-form">
-    <h2>მომხმარებლის ინფორმაცია</h2>
-
-    <div class="form-group">
-      <label>სახელი</label>
-      <input formControlName="firstName" />
-      <small *ngIf="f.firstName.touched && f.firstName.invalid">მინიმუმ 2 სიმბოლო</small>
+<div class="checkout-wrapper">
+  <div class="checkout-card">
+    <div class="checkout-topbar">
+      <div>
+        <span class="eyebrow">Checkout</span>
+        <h2>გააფორმე შენთვის საჭირო შეკვეთა</h2>
+        <p>შეავსე ფორმა და დაამატე გადახდის დეტალები მარტივად და უსაფრთხოდ.</p>
+      </div>
+      <div class="checkout-stepper">
+        <div class="step" [class.active]="step() === 1">
+          <span>1</span>
+          <small>პირადი</small>
+        </div>
+        <div class="divider"></div>
+        <div class="step" [class.active]="step() === 2">
+          <span>2</span>
+          <small>გადახდა</small>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>გვარი</label>
-      <input formControlName="lastName" />
+    <form [formGroup]="form" *ngIf="step() === 1" class="checkout-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>სახელი</label>
+          <input formControlName="firstName" placeholder="გიორგი" />
+          <small *ngIf="f.firstName.touched && f.firstName.invalid">მინიმუმ 2 სიმბოლო</small>
+        </div>
+
+        <div class="form-group">
+          <label>გვარი</label>
+          <input formControlName="lastName" placeholder="ბერიძე" />
+          <small *ngIf="f.lastName.touched && f.lastName.invalid">მინიმუმ 2 სიმბოლო</small>
+        </div>
+
+        <div class="form-group full-width">
+          <label>ელ.ფოსტა</label>
+          <input formControlName="email" type="email" placeholder="example@mail.com" />
+          <small *ngIf="f.email.touched && f.email.invalid">[email] ფორმატში შეიყვანე</small>
+        </div>
+
+        <div class="form-group">
+          <label>ტელეფონი</label>
+          <input formControlName="phone" placeholder="+995 555 123 456" />
+        </div>
+
+        <div class="form-group">
+          <label>ქალაქი</label>
+          <input formControlName="city" placeholder="თბილისი" />
+        </div>
+
+        <div class="form-group full-width">
+          <label>მისამართი</label>
+          <input formControlName="address" placeholder="რუსთაველის გამზირი 1" />
+        </div>
+
+        <div class="form-group">
+          <label>Zipcode</label>
+          <input formControlName="zipcode" placeholder="0101" />
+        </div>
+      </div>
+
+      <button type="button" class="btn-primary-custom" (click)="nextStep()">გაგრძელება</button>
+    </form>
+
+    <form [formGroup]="form" *ngIf="step() === 2" class="checkout-form">
+      <div class="form-grid">
+        <div class="form-group full-width card-preview">
+          <span class="card-chip"></span>
+          <span class="card-type">Visa</span>
+          <p>ბარათის დეტალები შენახული არ არის.</p>
+        </div>
+
+        <div class="form-group full-width">
+          <label>ბარათის ნომერი</label>
+          <input
+            formControlName="cardNumber"
+            (input)="formatCardNumber($event)"
+            placeholder="1234 5678 9012 3456"
+          />
+          <small *ngIf="f.cardNumber.touched && f.cardNumber.invalid">შეიყვანეთ 16 ციფრი</small>
+        </div>
+
+        <div class="form-group">
+          <label>ვადის გასვლა</label>
+          <input formControlName="cardExpiry" (input)="formatExpiry($event)" placeholder="MM/YY" />
+          <small *ngIf="f.cardExpiry.touched && f.cardExpiry.invalid">MM/YY</small>
+        </div>
+
+        <div class="form-group">
+          <label>CVV</label>
+          <input formControlName="cardCvv" placeholder="123" />
+          <small *ngIf="f.cardCvv.touched && f.cardCvv.invalid">3 ან 4 ციფრი</small>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn-primary-custom"
+        (click)="placeOrder()"
+        [disabled]="isLoading()"
+      >
+        {{ isLoading() ? 'მიტანა...' : 'შეკვეთის დასრულება' }}
+      </button>
+    </form>
+
+    <div *ngIf="isSuccess()" class="success-message">
+      <div class="success-icon">✓</div>
+      <h3>შეკვეთა წარმატებით დასრულდა</h3>
+      <p>დაგვიკავშირდით დამატებითი ინფორმაციისთვის და მალე მივალთ თქვენამდე.</p>
     </div>
-
-    <div class="form-group">
-      <label>ელ.ფოსტა</label>
-      <input formControlName="email" type="email" />
-    </div>
-
-    <div class="form-group">
-      <label>ტელეფონი</label>
-      <input formControlName="phone" />
-    </div>
-
-    <div class="form-group">
-      <label>მისამართი</label>
-      <input formControlName="address" />
-    </div>
-
-    <div class="form-group">
-      <label>ქალაქი</label>
-      <input formControlName="city" />
-    </div>
-
-    <div class="form-group">
-      <label>Zipcode</label>
-      <input formControlName="zipcode" />
-    </div>
-
-    <button type="button" class="btn-primary" (click)="nextStep()">გაგრძელება</button>
-  </form>
-
-  <!-- Step 2: Payment Info -->
-  <form [formGroup]="form" *ngIf="step() === 2" class="checkout-form">
-    <h2>გადახდის ინფორმაცია</h2>
-
-    <div class="form-group">
-      <label>ბარათის ნომერი</label>
-      <input formControlName="cardNumber" (input)="formatCardNumber($event)" />
-    </div>
-
-    <div class="form-group">
-      <label>ვადის გასვლა</label>
-      <input formControlName="cardExpiry" (input)="formatExpiry($event)" />
-    </div>
-
-    <div class="form-group">
-      <label>CVV</label>
-      <input formControlName="cardCvv" />
-    </div>
-
-    <button type="button" class="btn-success" (click)="placeOrder()" [disabled]="isLoading()">შეკვეთის გაფორმება</button>
-  </form>
-
-  <!-- Success Message -->
-  <div *ngIf="isSuccess()" class="success-message">
-    ✅ შეკვეთა წარმატებით გაფორმდა!
   </div>
 </div>
