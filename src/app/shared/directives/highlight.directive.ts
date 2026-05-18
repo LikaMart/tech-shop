@@ -1,20 +1,27 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appHighlight]',
   standalone: true,
 })
-export class HighlightDirective {
-  @Input() appHighlight = '#fff8f0';
+export class HighlightDirective implements OnChanges {
+  @Input() appHighlight = '';
+  @Input() highlightColor = '#ffd60a';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-  @HostListener('mouseenter') onEnter() {
-    this.el.nativeElement.style.backgroundColor = this.appHighlight;
-    this.el.nativeElement.style.transition = 'background-color 0.3s';
-  }
-
-  @HostListener('mouseleave') onLeave() {
-    this.el.nativeElement.style.backgroundColor = '';
+  ngOnChanges() {
+    const el = this.el.nativeElement as HTMLElement;
+    if (this.appHighlight) {
+      this.renderer.setStyle(el, 'background-color', this.highlightColor);
+      this.renderer.setStyle(el, 'color', '#0a0a0a');
+      this.renderer.setStyle(el, 'border-radius', '3px');
+      this.renderer.setStyle(el, 'padding', '0 2px');
+    } else {
+      this.renderer.removeStyle(el, 'background-color');
+      this.renderer.removeStyle(el, 'color');
+      this.renderer.removeStyle(el, 'border-radius');
+      this.renderer.removeStyle(el, 'padding');
+    }
   }
 }

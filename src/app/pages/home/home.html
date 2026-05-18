@@ -1,9 +1,7 @@
 <div class="home">
   <div class="hero-section">
     <div class="hero-content">
-      <div class="hero-badge">
-        ⚡ {{ lang.translations().heroStoreTag }}
-      </div>
+      <div class="hero-badge">⚡ {{ lang.translations().heroStoreTag }}</div>
       <h1 class="hero-title">{{ lang.translations().heroTitle }} <span>TechShop</span></h1>
       <p class="hero-subtitle">{{ lang.translations().heroSubtitle }}</p>
       <div class="hero-features">
@@ -39,7 +37,7 @@
             type="text"
             class="search-bar"
             [placeholder]="lang.translations().searchPlaceholder"
-            [(ngModel)]="searchQuery"
+            [(ngModel)]="searchQueryModel"
           />
           @if (searchQuery()) {
             <button class="clear-search" (click)="searchQuery.set('')">✕</button>
@@ -48,7 +46,7 @@
 
         <div class="filters-wrapper">
           <div class="filter-group">
-            <select [(ngModel)]="selectedCategory" class="filter-select">
+            <select [(ngModel)]="selectedCategoryModel" class="filter-select">
               <option value="">{{ lang.translations().allCategories }}</option>
               @for (category of categories; track category) {
                 <option [value]="category">{{ category }}</option>
@@ -57,7 +55,7 @@
           </div>
 
           <div class="filter-group">
-            <select [(ngModel)]="sortBy" class="filter-select">
+            <select [(ngModel)]="sortByModel" class="filter-select">
               <option value="popular">{{ lang.translations().sortMostPopular }}</option>
               <option value="price-low">{{ lang.translations().sortPriceLow }}</option>
               <option value="price-high">{{ lang.translations().sortPriceHigh }}</option>
@@ -119,9 +117,15 @@
                     <span class="price-old">{{ product.price.beforeDiscount | gel }}</span>
                   }
                 </div>
-                <button class="btn-add-to-cart" (click)="addToCart(product)">
-                  🛒 {{ lang.translations().addToCart }}
-                </button>
+                @if (product.stock === 0) {
+                  <button class="btn-add-to-cart disabled" disabled>
+                    {{ lang.translations().soldOut }}
+                  </button>
+                } @else {
+                  <button class="btn-add-to-cart" (click)="addToCart(product)">
+                    {{ lang.translations().addToCart }}
+                  </button>
+                }
               </div>
             </div>
           }

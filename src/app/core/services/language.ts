@@ -91,6 +91,8 @@ export interface Translations {
   productDescription: string;
   save: string;
   percentOff: string;
+  soldOut: string;
+  inStock: string;
   addedToCart: string;
   fieldRequired: string;
   minAge: string;
@@ -127,7 +129,9 @@ const ka: Translations = {
   cart: 'კალათა',
   products: 'პროდუქტები',
   productsSubtitle: 'აირჩიე შენთვის სასურველი ტექნიკა',
-  addToCart: '🛒 კალათაში',
+  addToCart: 'კალათაში',
+  soldOut: 'მარაგი ამოწურულია',
+  inStock: 'მარაგშია',
   details: 'დეტალები',
   loading: '⏳ იტვირთება...',
   error: 'პროდუქტები ვერ ჩაიტვირთა',
@@ -244,7 +248,9 @@ const en: Translations = {
   cart: 'Cart',
   products: 'Products',
   productsSubtitle: 'Choose your favorite tech',
-  addToCart: '🛒 Add to Cart',
+  addToCart: 'Add to Cart',
+  soldOut: 'Sold Out',
+  inStock: 'In stock',
   details: 'Details',
   loading: '⏳ Loading...',
   error: 'Products could not be loaded',

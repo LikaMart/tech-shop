@@ -26,6 +26,27 @@ export class HomeComponent {
   selectedCategory = signal<string>('');
   sortBy = signal<string>('popular');
 
+  get searchQueryModel() {
+    return this.searchQuery();
+  }
+  set searchQueryModel(value: string) {
+    this.searchQuery.set(value || '');
+  }
+
+  get selectedCategoryModel() {
+    return this.selectedCategory();
+  }
+  set selectedCategoryModel(value: string) {
+    this.selectedCategory.set(value || '');
+  }
+
+  get sortByModel() {
+    return this.sortBy();
+  }
+  set sortByModel(value: string) {
+    this.sortBy.set(value || 'popular');
+  }
+
   allProducts = toSignal(
     this.productService.getAll().pipe(
       map((res) => res.products),
@@ -63,7 +84,9 @@ export class HomeComponent {
     } else if (sort === 'price-high') {
       products = [...products].sort((a, b) => b.price.current - a.price.current);
     } else if (sort === 'discount') {
-      products = [...products].sort((a, b) => b.price.discountPercentage - a.price.discountPercentage);
+      products = [...products].sort(
+        (a, b) => b.price.discountPercentage - a.price.discountPercentage,
+      );
     }
 
     return products;
@@ -75,9 +98,12 @@ export class HomeComponent {
   }
 
   addToCart(product: Product) {
-    this.cartService.updateCart(product._id).subscribe({
-      next: () => console.log('დაემატა!'),
-      error: () => this.cartService.createCart(product._id).subscribe()
+    if (product.stock <= 0) return;
+
+    const quantity = 1;
+    this.cartService.updateCart(product._id, quantity).subscribe({
+      next: () => console.log('Product added to cart'),
+      error: () => this.cartService.createCart(product._id, quantity).subscribe(),
     });
   }
 

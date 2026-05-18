@@ -23,9 +23,18 @@ export class ProductDetailComponent implements OnInit {
   product = signal<Product | null>(null);
   loading = signal(true);
   error = signal<string>('');
-  quantity = signal(1);
+  quantity = signal<number>(1);
   selectedImage = signal<string>('');
   addedToCart = signal(false);
+
+  get quantityModel() {
+    return this.quantity();
+  }
+  set quantityModel(value: number) {
+    const requested = Number(value) || 1;
+    const stock = this.product()?.stock ?? 1;
+    this.quantity.set(Math.max(1, Math.min(requested, stock)));
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -40,6 +49,7 @@ export class ProductDetailComponent implements OnInit {
       next: (product) => {
         this.product.set(product);
         this.selectedImage.set(product.thumbnail);
+        this.quantity.set(1);
         this.loading.set(false);
       },
       error: () => {
@@ -50,26 +60,27 @@ export class ProductDetailComponent implements OnInit {
   }
 
   incrementQuantity() {
-    this.quantity.update((q) => q + 1);
+    const product = this.product();
+    if (!product || product.stock <= 0) return;
+    this.quantity.update((q) => Math.min(q + 1, product.stock));
   }
 
   decrementQuantity() {
-    if (this.quantity() > 1) {
-      this.quantity.update((q) => q - 1);
-    }
+    this.quantity.update((q) => Math.max(1, q - 1));
   }
 
   addToCart() {
     const currentProduct = this.product();
-    if (!currentProduct) return;
+    if (!currentProduct || currentProduct.stock <= 0) return;
 
-    this.cartService.updateCart(currentProduct._id).subscribe({
+    const quantity = this.quantity();
+    this.cartService.updateCart(currentProduct._id, quantity).subscribe({
       next: () => {
         this.addedToCart.set(true);
         setTimeout(() => this.addedToCart.set(false), 2000);
       },
       error: () => {
-        this.cartService.createCart(currentProduct._id).subscribe({
+        this.cartService.createCart(currentProduct._id, quantity).subscribe({
           next: () => {
             this.addedToCart.set(true);
             setTimeout(() => this.addedToCart.set(false), 2000);

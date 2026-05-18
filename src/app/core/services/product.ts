@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
+
 
 export interface Product {
   _id: string;
@@ -42,12 +44,17 @@ export class ProductService {
   isLoading = signal<boolean>(false);
 
   getAll(pageIndex: number = 1, pageSize: number = 10) {
-    this.isLoading.set(true);
-    return this.http.get<ProductsResponse>(
-      `${this.apiUrl}/products/all?page_index=${pageIndex}&page_size=${pageSize}`,
-    );
-  }
-
+  this.isLoading.set(true);
+  return this.http.get<ProductsResponse>(
+    `${this.apiUrl}/products/all?page_index=${pageIndex}&page_size=${pageSize}`,
+  ).pipe(
+    tap(() => this.isLoading.set(false)),
+    catchError((err) => {
+      this.isLoading.set(false);
+      throw err;
+    })
+  );
+}
   getById(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/products/id/${id}`);
   }
