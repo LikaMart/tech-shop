@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../core/services/cart';
 import { GelPipe } from '../../shared/pipes/gel-pipe';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../../core/services/language';
 
 @Component({
@@ -14,6 +14,7 @@ import { LanguageService } from '../../core/services/language';
 export class CartComponent implements OnInit {
   cartService = inject(CartService);
   lang = inject(LanguageService);
+  private router = inject(Router);
 
   ngOnInit() {
     this.cartService.getCart().subscribe();
@@ -28,6 +29,6 @@ export class CartComponent implements OnInit {
   }
 
   doCheckout() {
-    this.cartService.checkout().subscribe();
+    this.router.navigate(['/checkout']);
   }
 }
