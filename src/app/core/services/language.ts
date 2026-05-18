@@ -26,6 +26,10 @@ export interface Translations {
   aboutSupport: string;
   aboutSupportDesc: string;
   aboutContact: string;
+  aboutHeadline: string;
+  aboutContactText: string;
+  aboutContactCta: string;
+  contactUs: string;
   cartTitle: string;
   cartEmpty: string;
   cartTotal: string;
@@ -147,6 +151,10 @@ const ka: Translations = {
   aboutSupport: 'მხარდაჭერა',
   aboutSupportDesc: '24/7 მომხმარებელთა მხარდაჭერა ნებისმიერი კითხვისთვის.',
   aboutContact: 'დაგვიკავშირდი',
+  aboutHeadline: 'TechShop — ტექნოლოგიური ექსკლუზივების მაღაზია',
+  aboutContactText: 'Გვსიამოვნებს დაგეხმაროთ შეკვეთების, დაბრუნების ან სხვა კითხვების დროს.',
+  aboutContactCta: 'გაგვიგზავნეთ შეტყობინება და ჩვენ მალე მოგხვდებით.',
+  contactUs: 'დაგვიკავშირდით',
   cartTitle: '🛒 კალათა',
   cartEmpty: 'კალათა ცარიელია',
   cartTotal: 'სულ',
@@ -266,6 +274,10 @@ const en: Translations = {
   aboutSupport: 'Support',
   aboutSupportDesc: '24/7 customer support for any questions.',
   aboutContact: 'Contact Us',
+  aboutHeadline: 'TechShop — your premium technology destination',
+  aboutContactText: 'We’re ready to help with orders, returns, or any questions you have.',
+  aboutContactCta: 'Send us a message and our team will get back to you shortly.',
+  contactUs: 'Contact Us',
   cartTitle: '🛒 Cart',
   cartEmpty: 'Cart is empty',
   cartTotal: 'Total',

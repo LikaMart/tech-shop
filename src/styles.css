@@ -1,17 +1,24 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'animate.css/animate.min.css';
+
 /* You can add global styles to this file, and also import other style files */
 /* #region Variables */
 :root {
-  --main-color: #1a1a2e;
+  --main-color: #090b1a;
+  --surface-color: #111827;
+  --surface-alt: #1f2937;
   --accent-color: #7c3aed;
   --accent-hover: #6d28d9;
-  --text-color: #ffffff;
-  --text-muted: #94a3b8;
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
+  --text-color: #f8fafc;
+  --text-muted: #cbd5e1;
+  --bg-color: #050816;
+  --card-bg: rgba(15, 23, 42, 0.92);
+  --border-color: rgba(148, 163, 184, 0.2);
+  --shadow-soft: 0 30px 80px rgba(15, 23, 42, 0.25);
   --transition-fast: 0.2s;
   --transition-normal: 0.3s;
-  --transition-smooth: 0.4s;
+  --transition-smooth: 0.45s;
   --font-primary: 'Poppins', sans-serif;
   --font-secondary: 'Inter', sans-serif;
 }
@@ -42,16 +49,19 @@ html {
 }
 
 body {
+  min-height: 100vh;
   font-family: var(--font-secondary);
-  background-color: var(--bg-color);
-  color: #1e293b;
+  background:
+    radial-gradient(circle at top, rgba(124, 58, 237, 0.15), transparent 30%),
+    linear-gradient(180deg, #090b1a 0%, #050816 100%);
+  color: var(--text-color);
   line-height: 1.6;
   font-size: 16px;
 }
 
 @media (max-width: 768px) {
   body {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -74,7 +84,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--accent-color);
+  outline: 2px solid rgba(124, 58, 237, 0.8);
   outline-offset: 2px;
 }
 
@@ -97,19 +107,26 @@ img {
 input,
 textarea,
 select {
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 14px 16px;
   transition: all var(--transition-normal);
   font-family: var(--font-secondary);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(203, 213, 225, 0.7);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.8);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
 }
 
 /* #endregion */
@@ -153,6 +170,59 @@ select:focus {
   align-items: center;
 }
 
+.bg-surface {
+  background: var(--surface-color);
+}
+
+.card-surface,
+.form-surface {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  border-radius: 28px;
+  backdrop-filter: blur(18px);
+}
+
+.section-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.05;
+}
+
+.section-subtitle,
+.text-muted {
+  color: var(--text-muted);
+}
+
+.btn-primary-custom {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border: none;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.95rem 1.8rem;
+  font-weight: 700;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.18);
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.badge-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.15);
+  color: #e0dcff;
+  font-weight: 600;
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
 /* #endregion */
 
 /* #region Typography */
@@ -166,43 +236,38 @@ h6 {
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
-  color: #1e293b;
+  color: #f8fafc;
   letter-spacing: -0.5px;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
 }
 
 h2 {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 h4 {
   font-size: 1.25rem;
-  font-weight: 700;
 }
 
 h5 {
   font-size: 1.1rem;
-  font-weight: 600;
 }
 
 h6 {
   font-size: 1rem;
-  font-weight: 600;
 }
 
 p {
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.75;
   font-family: var(--font-secondary);
 }
 
@@ -215,23 +280,23 @@ p {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: rgba(15, 23, 42, 0.55);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
-  border-radius: 5px;
+  background: rgba(124, 58, 237, 0.65);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: rgba(124, 58, 237, 0.9);
 }
 
 /* #endregion */
 
 /* #region Focus Visible */
 :focus-visible {
-  outline: 2px solid var(--accent-color);
+  outline: 2px solid rgba(124, 58, 237, 0.9);
   outline-offset: 2px;
 }
 

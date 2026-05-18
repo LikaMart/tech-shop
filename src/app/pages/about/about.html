@@ -1,41 +1,63 @@
 <div class="about-page">
   <div class="container">
     <div class="about-hero">
-      <h1>{{ lang.translations().aboutTitle }}</h1>
+      <span class="about-eyebrow">{{ lang.translations().aboutTitle }}</span>
+      <h1>{{ lang.translations().aboutHeadline }}</h1>
       <p>{{ lang.translations().aboutSubtitle }}</p>
     </div>
 
     <div class="about-grid">
-      <div class="about-card">
-        <span class="icon">💻</span>
+      <article class="about-card">
+        <span class="icon">
+          <i class="bi bi-laptop"></i>
+        </span>
         <h3>{{ lang.translations().aboutProducts }}</h3>
         <p>{{ lang.translations().aboutProductsDesc }}</p>
-      </div>
+      </article>
 
-      <div class="about-card">
-        <span class="icon">🚚</span>
+      <article class="about-card">
+        <span class="icon">
+          <i class="bi bi-truck"></i>
+        </span>
         <h3>{{ lang.translations().aboutDelivery }}</h3>
         <p>{{ lang.translations().aboutDeliveryDesc }}</p>
-      </div>
+      </article>
 
-      <div class="about-card">
-        <span class="icon">🛡️</span>
+      <article class="about-card">
+        <span class="icon">
+          <i class="bi bi-shield-lock"></i>
+        </span>
         <h3>{{ lang.translations().aboutWarranty }}</h3>
         <p>{{ lang.translations().aboutWarrantyDesc }}</p>
-      </div>
+      </article>
 
-      <div class="about-card">
-        <span class="icon">💬</span>
+      <article class="about-card">
+        <span class="icon">
+          <i class="bi bi-headset"></i>
+        </span>
         <h3>{{ lang.translations().aboutSupport }}</h3>
         <p>{{ lang.translations().aboutSupportDesc }}</p>
-      </div>
+      </article>
     </div>
 
-    <div class="about-contact">
-      <h2>{{ lang.translations().aboutContact }}</h2>
-      <p>📧 info@techshop.ge</p>
-      <p>📞 +995 555 123 456</p>
-      <p>📍 თბილისი, რუსთაველის გამზირი 1</p>
-    </div>
+    <section class="about-contact">
+      <div class="about-contact-info">
+        <h2>{{ lang.translations().aboutContact }}</h2>
+        <p>{{ lang.translations().aboutContactText }}</p>
+      </div>
+      <div class="about-contact-details">
+        <div>
+          <p><i class="bi bi-envelope-fill"></i> info@techshop.ge</p>
+          <p><i class="bi bi-telephone-fill"></i> +995 555 123 456</p>
+          <p><i class="bi bi-geo-alt-fill"></i> თბილისი, რუსთაველის გამზირი 1</p>
+        </div>
+        <div class="about-contact-cta">
+          <p>{{ lang.translations().aboutContactCta }}</p>
+          <a href="mailto:info@techshop.ge" class="btn-primary-custom">{{
+            lang.translations().contactUs
+          }}</a>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
