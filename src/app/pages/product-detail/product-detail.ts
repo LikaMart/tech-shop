@@ -1,4 +1,4 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService, Product } from '../../core/services/product';
 import { CartService } from '../../core/services/cart';
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
@@ -27,28 +27,19 @@ export class ProductDetailComponent {
   selectedImage = signal<string>('');
   addedToCart = signal(false);
 
-  constructor() {
-    effect(() => {
-      this.route.params.subscribe((params) => {
-        const id = params['id'];
-        if (id) {
-          this.loadProduct(id);
-        }
-      });
-    });
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.loadProduct(id);
+    }
   }
 
   loadProduct(id: string) {
     this.loading.set(true);
-    this.productService.getAll().subscribe({
-      next: (res) => {
-        const foundProduct = res.products.find((p) => p._id === id);
-        if (foundProduct) {
-          this.product.set(foundProduct);
-          this.selectedImage.set(foundProduct.thumbnail);
-        } else {
-          this.error.set(this.lang.translations().productNotFound);
-        }
+    this.productService.getById(id).subscribe({
+      next: (product) => {
+        this.product.set(product);
+        this.selectedImage.set(product.thumbnail);
         this.loading.set(false);
       },
       error: () => {
