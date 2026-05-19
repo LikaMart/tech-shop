@@ -8,7 +8,11 @@
           @for (item of cartService.cart()!.products; track item.productId) {
             <div class="cart-item">
               <div class="item-info">
-                <p class="item-id">ID: {{ item.productId }}</p>
+                <img
+                  [src]="productMap[item.productId]?.thumbnail"
+                  [alt]="productMap[item.productId]?.title"
+                  style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"
+                />
                 <p class="item-qty">{{ lang.translations().cartQuantity }}: {{ item.quantity }}</p>
                 <p class="item-price">
                   {{ lang.translations().cartPrice }}: {{ item.pricePerQuantity | gel }}
