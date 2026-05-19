@@ -5,8 +5,7 @@
   justify-content: center;
   padding: 48px 24px;
   background:
-    radial-gradient(circle at top, rgba(124, 58, 237, 0.14), transparent 25%),
-    linear-gradient(180deg, #080a18 0%, #050714 100%);
+    rgb(7, 7, 51);
 }
 
 .register-shell {
@@ -125,7 +124,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: rgba(124, 58, 237, 0.85);
+  border-color: rgba(88, 2, 235, 0.85);
   box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
   outline: none;
 }
@@ -138,7 +137,7 @@
 .btn-primary-custom {
   width: 100%;
   padding: 14px 18px;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  background: rgb(30, 30, 113);
   color: #fff;
   border-radius: 16px;
   border: none;

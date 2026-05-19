@@ -47,8 +47,8 @@
 
 .hero-badge {
   display: inline-block;
-  background: rgba(124, 58, 237, 0.2);
-  border: 1px solid rgba(124, 58, 237, 0.4);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(7, 7, 7, 0.4);
   color: #e0e7ff;
   padding: 8px 16px;
   border-radius: 20px;
@@ -85,7 +85,7 @@
 }
 
 .hero-title span {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #8b5cf6 100%);
+  background:  #0f0fa4;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
