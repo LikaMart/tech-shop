@@ -33,6 +33,11 @@
 }
 /* #endregion */
 
+@font-face {
+  font-family: 'font-name';
+  src: url('/assets/MSBlock-4295653137.otf') format('woff2');
+}
+
 /* #region Reset */
 *,
 *:after,
@@ -49,8 +54,9 @@ html {
 }
 
 body {
+  font-family: 'font-name';
+  font-size: 8px;
   min-height: 100vh;
-  font-family: var(--font-secondary);
   background:
     radial-gradient(circle at top, rgba(124, 58, 237, 0.15), transparent 30%),
     linear-gradient(180deg, #090b1a 0%, #050816 100%);
