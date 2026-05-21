@@ -73,7 +73,7 @@ export class HomeComponent {
 
   isLoading = this.productService.isLoading;
 
-  // ---- ფილტრირება + სორტი (ყველა პროდუქტი) ----
+  // ---- ფილტრირება  --
   get filteredProducts(): Product[] {
     let products = this.allProducts();
     const query = this.searchQuery().toLowerCase().trim();
