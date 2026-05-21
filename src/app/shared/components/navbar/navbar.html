@@ -2,7 +2,10 @@
   <div class="container">
     <a routerLink="/home" class="logo">Tech<span>Shop</span></a>
 
-    <input type="checkbox" id="burger-toggle" class="burger-toggle" />
+    <input type="checkbox" id="burger-toggle" class="burger-toggle"
+      [checked]="isMenuOpen()"
+      (change)="toggleMenu()"
+    />
     <label for="burger-toggle" class="burger">
       <span></span>
       <span></span>
@@ -15,30 +18,31 @@
           routerLink="/home"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
           >{{ lang.translations().home }}</a
         >
       </li>
       <li>
-        <a routerLink="/about" routerLinkActive="active">{{ lang.translations().about }}</a>
+        <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">{{ lang.translations().about }}</a>
       </li>
 
       @if (auth.isLoggedIn()) {
         <li>
-          <a routerLink="/cart" routerLinkActive="active">
+          <a routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">
             <i class="fas fa-shopping-cart"></i> {{ lang.translations().cart }} ({{
               cart.totalItems()
             }})
           </a>
         </li>
         <li>
-          <button (click)="auth.signOut()">{{ lang.translations().logout }}</button>
+          <button (click)="auth.signOut(); closeMenu()">{{ lang.translations().logout }}</button>
         </li>
       } @else {
         <li>
-          <a routerLink="/login" routerLinkActive="active">{{ lang.translations().login }}</a>
+          <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">{{ lang.translations().login }}</a>
         </li>
         <li>
-          <a routerLink="/register" routerLinkActive="active" class="btn-primary">{{
+          <a routerLink="/register" routerLinkActive="active" class="btn-primary" (click)="closeMenu()">{{
             lang.translations().register
           }}</a>
         </li>
