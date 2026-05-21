@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 
-
 export interface Product {
   _id: string;
   title: string;
@@ -43,27 +42,38 @@ export class ProductService {
   products = signal<Product[]>([]);
   isLoading = signal<boolean>(false);
 
-  getAll(pageIndex: number = 1, pageSize: number = 10) {
-  this.isLoading.set(true);
-  return this.http.get<ProductsResponse>(
-    `${this.apiUrl}/products/all?page_index=${pageIndex}&page_size=${pageSize}`,
-  ).pipe(
-    tap(() => this.isLoading.set(false)),
-    catchError((err) => {
-      this.isLoading.set(false);
-      throw err;
-    })
-  );
-}
+  // page_size=40 — ყველა პროდუქტი ერთბაშად (სულ 38 არის)
+  getAll(pageIndex: number = 1, pageSize: number = 40) {
+    this.isLoading.set(true);
+    return this.http
+      .get<ProductsResponse>(
+        `${this.apiUrl}/products/all?page_index=${pageIndex}&page_size=${pageSize}`,
+      )
+      .pipe(
+        tap((res) => {
+          this.products.set(res.products);
+          this.isLoading.set(false);
+        }),
+        catchError((err) => {
+          this.isLoading.set(false);
+          throw err;
+        }),
+      );
+  }
+
   getById(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/products/id/${id}`);
   }
 
   getByCategory(category: string) {
-    return this.http.get<ProductsResponse>(`${this.apiUrl}/products/category?name=${category}`);
+    return this.http.get<ProductsResponse>(
+      `${this.apiUrl}/products/category?name=${category}`,
+    );
   }
 
   search(keyword: string) {
-    return this.http.get<ProductsResponse>(`${this.apiUrl}/products/search?keywords=${keyword}`);
+    return this.http.get<ProductsResponse>(
+      `${this.apiUrl}/products/search?keywords=${keyword}`,
+    );
   }
 }

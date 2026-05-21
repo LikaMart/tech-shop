@@ -30,7 +30,10 @@
         </div>
       </div>
 
+      <!-- ფილტრების სექცია -->
       <div class="filter-section">
+
+        <!-- საძიებო ველი -->
         <div class="search-bar-wrapper">
           <span class="search-icon">🔍</span>
           <input
@@ -40,11 +43,13 @@
             [(ngModel)]="searchQueryModel"
           />
           @if (searchQuery()) {
-            <button class="clear-search" (click)="searchQuery.set('')">✕</button>
+            <button class="clear-search" (click)="searchQuery.set(''); currentPage.set(1)">✕</button>
           }
         </div>
 
         <div class="filters-wrapper">
+
+          <!-- კატეგორია -->
           <div class="filter-group">
             <select [(ngModel)]="selectedCategoryModel" class="filter-select">
               <option value="">{{ lang.translations().allCategories }}</option>
@@ -54,6 +59,7 @@
             </select>
           </div>
 
+          <!-- სორტი -->
           <div class="filter-group">
             <select [(ngModel)]="sortByModel" class="filter-select">
               <option value="popular">{{ lang.translations().sortMostPopular }}</option>
@@ -63,7 +69,27 @@
             </select>
           </div>
 
-          @if (searchQuery() || selectedCategory()) {
+          <!-- ფასის ფილტრი -->
+          <div class="filter-group price-range">
+            <input
+              type="number"
+              class="filter-input"
+              placeholder="ფასი დან"
+              [(ngModel)]="minPriceModel"
+              min="0"
+            />
+            <span class="price-separator">—</span>
+            <input
+              type="number"
+              class="filter-input"
+              placeholder="ფასი მდე"
+              [(ngModel)]="maxPriceModel"
+              min="0"
+            />
+          </div>
+
+          <!-- ყველა ფილტრის გასუფთავება -->
+          @if (hasActiveFilters) {
             <button class="btn-clear-all" (click)="clearFilters()">
               🔄 {{ lang.translations().clearAll }}
             </button>
@@ -71,18 +97,25 @@
         </div>
       </div>
 
+      <!-- შედეგების რაოდენობა -->
       @if (!error() && filteredProducts.length > 0) {
         <div class="results-info">
           {{ lang.translations().resultsFound }}
           <strong>{{ filteredProducts.length }}</strong>
           {{ lang.translations().resultsProduct }}
+          &nbsp;·&nbsp; გვერდი <strong>{{ currentPage() }}</strong> / <strong>{{ totalPages }}</strong>
         </div>
       }
 
+      <!-- შეცდომა -->
       @if (error()) {
         <p class="error-text">❌ {{ lang.translations().error }}</p>
-      } @else if (allProducts().length === 0) {
+
+      <!-- ჩატვირთვა -->
+      } @else if (isLoading()) {
         <p class="loading">⏳ {{ lang.translations().loading }}</p>
+
+      <!-- ვერ მოიძებნა -->
       } @else if (filteredProducts.length === 0) {
         <div class="no-results">
           <p>🔍</p>
@@ -91,9 +124,11 @@
             {{ lang.translations().resetFilters }}
           </button>
         </div>
+
+      <!-- პროდუქტების გრიდი -->
       } @else {
         <div class="products-grid">
-          @for (product of filteredProducts; track product._id) {
+          @for (product of paginatedProducts; track product._id) {
             <div class="product-card">
               <div class="card-image-wrapper">
                 <img [src]="product.thumbnail" [alt]="product.title" />
@@ -130,6 +165,39 @@
             </div>
           }
         </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1) {
+          <div class="pagination">
+            <button
+              class="page-btn"
+              [class.disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+              [disabled]="currentPage() === 1"
+            >
+              ‹
+            </button>
+
+            @for (page of pages; track page) {
+              <button
+                class="page-btn"
+                [class.active]="page === currentPage()"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            }
+
+            <button
+              class="page-btn"
+              [class.disabled]="currentPage() === totalPages"
+              (click)="goToPage(currentPage() + 1)"
+              [disabled]="currentPage() === totalPages"
+            >
+              ›
+            </button>
+          </div>
+        }
       }
     </div>
   </div>
