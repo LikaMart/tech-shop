@@ -70,23 +70,21 @@
           </div>
 
           <!-- ფასის ფილტრი -->
-          <div class="filter-group price-range">
-            <input
-              type="number"
-              class="filter-input"
-              placeholder="ფასი დან"
-              [(ngModel)]="minPriceModel"
-              min="0"
-            />
-            <span class="price-separator">—</span>
-            <input
-              type="number"
-              class="filter-input"
-              placeholder="ფასი მდე"
-              [(ngModel)]="maxPriceModel"
-              min="0"
-            />
-          </div>
+       <input
+  type="number"
+  class="filter-input"
+  [placeholder]="lang.translations().priceFrom"
+  [(ngModel)]="minPriceModel"
+  min="0"
+/>
+<span class="price-separator">—</span>
+<input
+  type="number"
+  class="filter-input"
+  [placeholder]="lang.translations().priceTo"
+  [(ngModel)]="maxPriceModel"
+  min="0"
+/>
 
           <!-- ყველა ფილტრის გასუფთავება -->
           @if (hasActiveFilters) {

@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 export type Language = 'ka' | 'en';
 
 export interface Translations {
+  // Nav
   home: string;
   about: string;
   login: string;
@@ -130,6 +131,8 @@ export interface Translations {
   failedToLoadProduct: string;
   ratingOutOf5: string;
   productInformation: string;
+  priceFrom: string; // ახალი
+  priceTo: string;   // ახალი
 }
 
 const ka: Translations = {
@@ -262,6 +265,8 @@ const ka: Translations = {
   failedToLoadProduct: 'პროდუქტის ჩატვირთვა ვერ მოხერხდა',
   ratingOutOf5: '/ 5',
   productInformation: 'პროდუქტის ინფორმაცია',
+  priceFrom: 'ფასი დან',  // ახალი
+  priceTo: 'ფასი მდე',    // ახალი
 };
 
 const en: Translations = {
@@ -292,8 +297,8 @@ const en: Translations = {
   aboutSupportDesc: '24/7 customer support for any questions.',
   aboutContact: 'Contact Us',
   aboutHeadline: 'TechShop — your premium technology destination',
-  aboutContactText: 'We’re ready to help with orders, returns, or any questions you have.',
-  aboutContactCta: 'Send us a message and our team will get back to you shortly.',
+ aboutContactText: "We're ready to help with orders, returns, or any questions you have.",
+aboutContactCta: "Send us a message and our team will get back to you shortly.", 
   contactUs: 'Contact Us',
   cartTitle: '🛒 Cart',
   cartEmpty: 'Cart is empty',
@@ -394,6 +399,8 @@ const en: Translations = {
   ratingOutOf5: '/ 5',
   percentOff: '% OFF',
   productInformation: 'Product Information',
+  priceFrom: 'Price from',  // ახალი
+  priceTo: 'Price to',      // ახალი
 };
 
 @Injectable({ providedIn: 'root' })
