@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
 import { LanguageService } from '../../core/services/language';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ import { LanguageService } from '../../core/services/language';
 })
 export class RegisterComponent {
   private auth = inject(AuthService);
+  private http = inject(HttpClient);
   private router = inject(Router);
   lang = inject(LanguageService);
 
@@ -56,7 +58,14 @@ export class RegisterComponent {
       zipcode: this.zipcode,
       gender: this.gender,
     }).subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: () => {
+        this.http.post('https://likamart.app.n8n.cloud/webhook/Register', {
+          name: this.firstName + ' ' + this.lastName,
+          email: this.email
+        }).subscribe();
+
+        this.router.navigate(['/home']);
+      },
       error: () => {
         this.error.set(this.lang.translations().registerError);
         this.isLoading.set(false);
