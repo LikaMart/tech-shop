@@ -22,7 +22,7 @@ export class ChatWidgetComponent implements AfterViewChecked {
   messages = signal<ChatMessage[]>([
     {
       role: 'bot',
-      text: 'გამარჯობა! 👋 მე ვარ TechShop-ის AI დამხმარე. როგორ დაგეხმარო?',
+      text: 'გამარჯობა! 👋 მე ვარ TechShop-ის AI ასისტენტი. როგორ დაგეხმარო?',
       time: new Date(),
     },
   ]);
