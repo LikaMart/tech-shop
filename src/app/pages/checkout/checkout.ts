@@ -69,47 +69,66 @@ export class CheckoutComponent {
 
     this.isLoading.set(true);
 
+    // მონაცემები ადრე ვიღებთ სანამ cart გასუფთავდება
+    const firstName = this.form.value.firstName!;
+    const lastName = this.form.value.lastName!;
+    const email = this.form.value.email!;
+    const phone = this.form.value.phone!;
+    const address = this.form.value.address!;
+    const city = this.form.value.city!;
+    const total = this.cart()?.total?.price?.current ?? 0;
+    const orderId = Math.floor(Math.random() * 90000) + 10000;
+
     this.cartService
       .checkout()
       .pipe(take(1))
       .subscribe({
         next: () => {
-          this.sendTelegramNotification();
+          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
         },
         error: () => {
-          this.sendTelegramNotification();
+          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
         },
       });
   }
 
-  private sendTelegramNotification() {
-    const v = this.form.value;
-    const total = this.cart()?.total?.price?.current ?? 0;
-    const orderId = Math.floor(Math.random() * 90000) + 10000;
+  private sendN8NNotification(
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    address: string,
+    city: string,
+    total: number,
+    orderId: number
+  ) {
+    console.log('N8N-ზე გაგზავნა, email:', email);
 
-    // N8N-ს გაუგზავნე
     this.http
       .post('https://likamart.app.n8n.cloud/webhook/Checkout', {
-        firstName: v.firstName,
-        lastName: v.lastName,
-        email: v.email,
-        phone: v.phone,
-        address: `${v.address}, ${v.city}`,
-        city: v.city,
-        total: total,
-        orderId: orderId,
+        firstName,
+        lastName,
+        email,
+        phone,
+        address: `${address}, ${city}`,
+        city,
+        total,
+        orderId,
       })
       .pipe(take(1))
-      .subscribe();
+      .subscribe({
+        next: (res) => console.log('N8N პასუხი:', res),
+        error: (err) => console.error('N8N შეცდომა:', err),
+      });
 
     this.chatService
       .sendOrderNotification({
-        firstName: v.firstName!,
-        lastName: v.lastName!,
-        email: v.email!,
-        phone: v.phone!,
-        address: `${v.address}, ${v.city}`,
-        city: v.city!,
+        firstName,
+        lastName,
+        email,
+        phone,
+        address: `${address}, ${city}`,
+        city,
         total,
       })
       .pipe(take(1))
