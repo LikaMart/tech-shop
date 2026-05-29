@@ -69,7 +69,6 @@ export class CheckoutComponent {
 
     this.isLoading.set(true);
 
-    // მონაცემები ადრე ვიღებთ სანამ cart გასუფთავდება
     const firstName = this.form.value.firstName!;
     const lastName = this.form.value.lastName!;
     const email = this.form.value.email!;
@@ -84,28 +83,10 @@ export class CheckoutComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
-          this.sendN8NNotification(
-            firstName,
-            lastName,
-            email,
-            phone,
-            address,
-            city,
-            total,
-            orderId,
-          );
+          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
         },
         error: () => {
-          this.sendN8NNotification(
-            firstName,
-            lastName,
-            email,
-            phone,
-            address,
-            city,
-            total,
-            orderId,
-          );
+          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
         },
       });
   }
@@ -118,7 +99,7 @@ export class CheckoutComponent {
     address: string,
     city: string,
     total: number,
-    orderId: number,
+    orderId: number
   ) {
     console.log('N8N-ზე გაგზავნა, email:', email);
 
