@@ -83,10 +83,28 @@ export class CheckoutComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
-          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
+          this.sendN8NNotification(
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            city,
+            total,
+            orderId,
+          );
         },
         error: () => {
-          this.sendN8NNotification(firstName, lastName, email, phone, address, city, total, orderId);
+          this.sendN8NNotification(
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            city,
+            total,
+            orderId,
+          );
         },
       });
   }
@@ -99,12 +117,12 @@ export class CheckoutComponent {
     address: string,
     city: string,
     total: number,
-    orderId: number
+    orderId: number,
   ) {
     console.log('N8N-ზე გაგზავნა, email:', email);
 
     this.http
-      .post('/webhook/Checkout', {
+      .post('/n8n/webhook/Checkout', {
         firstName,
         lastName,
         email,

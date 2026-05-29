@@ -7,12 +7,12 @@
       "^/api": ""
     }
   },
-  "/webhook": {
+  "/n8n": {
     "target": "https://likamart.app.n8n.cloud",
     "secure": true,
     "changeOrigin": true,
     "pathRewrite": {
-      "^/webhook": "/webhook"
+      "^/n8n": ""
     }
   }
 }
