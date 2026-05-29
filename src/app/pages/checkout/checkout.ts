@@ -6,6 +6,7 @@ import { take } from 'rxjs';
 import { CartService } from '../../core/services/cart';
 import { ToastService } from '../../core/services/toast';
 import { ChatService } from '../../core/services/chat.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-checkout',
@@ -20,6 +21,7 @@ export class CheckoutComponent {
   private toastService = inject(ToastService);
   private chatService = inject(ChatService);
   private destroyRef = inject(DestroyRef);
+  private http = inject(HttpClient);
 
   cart = this.cartService.cart;
   isLoading = signal(false);
@@ -28,18 +30,20 @@ export class CheckoutComponent {
 
   form = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName:  ['', [Validators.required, Validators.minLength(2)]],
-    email:     ['', [Validators.required, Validators.email]],
-    phone:     ['', [Validators.required]],
-    address:   ['', [Validators.required, Validators.minLength(5)]],
-    city:      ['', Validators.required],
-    zipcode:   ['', Validators.required],
-    cardNumber:['', [Validators.required, Validators.pattern(/^[0-9]{16}$/)]],
-    cardExpiry:['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)]],
-    cardCvv:   ['', [Validators.required, Validators.pattern(/^[0-9]{3,4}$/)]],
+    lastName: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required]],
+    address: ['', [Validators.required, Validators.minLength(5)]],
+    city: ['', Validators.required],
+    zipcode: ['', Validators.required],
+    cardNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{16}$/)]],
+    cardExpiry: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)]],
+    cardCvv: ['', [Validators.required, Validators.pattern(/^[0-9]{3,4}$/)]],
   });
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
   constructor() {
     if (!this.cart()) {
@@ -65,40 +69,60 @@ export class CheckoutComponent {
 
     this.isLoading.set(true);
 
-    this.cartService.checkout().pipe(take(1)).subscribe({
-      next: () => {
-        this.sendTelegramNotification();
-      },
-      error: () => {
-        // გადახდა ვერ მოხდა API-ზე, მაგრამ demo-სთვის ვასრულებთ
-        this.sendTelegramNotification();
-      },
-    });
+    this.cartService
+      .checkout()
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.sendTelegramNotification();
+        },
+        error: () => {
+          this.sendTelegramNotification();
+        },
+      });
   }
 
   private sendTelegramNotification() {
     const v = this.form.value;
     const total = this.cart()?.total?.price?.current ?? 0;
+    const orderId = Math.floor(Math.random() * 90000) + 10000;
 
-    this.chatService.sendOrderNotification({
-      firstName: v.firstName!,
-      lastName:  v.lastName!,
-      email:     v.email!,
-      phone:     v.phone!,
-      address:   `${v.address}, ${v.city}`,
-      city:      v.city!,
-      total,
-    }).pipe(take(1)).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.isSuccess.set(true);
-      },
-      error: () => {
-        // Telegram ერორი არ აჩვენებს მომხმარებელს
-        this.isLoading.set(false);
-        this.isSuccess.set(true);
-      },
-    });
+    // N8N-ს გაუგზავნე
+    this.http
+      .post('https://likamart.app.n8n.cloud/webhook/Checkout', {
+        firstName: v.firstName,
+        lastName: v.lastName,
+        email: v.email,
+        phone: v.phone,
+        address: `${v.address}, ${v.city}`,
+        city: v.city,
+        total: total,
+        orderId: orderId,
+      })
+      .pipe(take(1))
+      .subscribe();
+
+    this.chatService
+      .sendOrderNotification({
+        firstName: v.firstName!,
+        lastName: v.lastName!,
+        email: v.email!,
+        phone: v.phone!,
+        address: `${v.address}, ${v.city}`,
+        city: v.city!,
+        total,
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.isLoading.set(false);
+          this.isSuccess.set(true);
+        },
+        error: () => {
+          this.isLoading.set(false);
+          this.isSuccess.set(true);
+        },
+      });
   }
 
   formatCardNumber(event: Event) {
