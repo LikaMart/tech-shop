@@ -8,8 +8,8 @@
     }
   },
   "/webhook": {
-    "target": "http://localhost:5678",
-    "secure": false,
+    "target": "https://likamart.app.n8n.cloud",
+    "secure": true,
     "changeOrigin": true,
     "pathRewrite": {
       "^/webhook": "/webhook"
