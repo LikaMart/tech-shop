@@ -36,23 +36,41 @@ export class HomeComponent {
   currentPage = signal<number>(1);
 
   // ---- two-way binding helpers ----
-  get searchQueryModel() { return this.searchQuery(); }
-  set searchQueryModel(v: string) { this.searchQuery.set(v ?? ''); this.currentPage.set(1); }
+  get searchQueryModel() {
+    return this.searchQuery();
+  }
+  set searchQueryModel(v: string) {
+    this.searchQuery.set(v ?? '');
+    this.currentPage.set(1);
+  }
 
-  get selectedCategoryModel() { return this.selectedCategory(); }
-  set selectedCategoryModel(v: string) { this.selectedCategory.set(v ?? ''); this.currentPage.set(1); }
+  get selectedCategoryModel() {
+    return this.selectedCategory();
+  }
+  set selectedCategoryModel(v: string) {
+    this.selectedCategory.set(v ?? '');
+    this.currentPage.set(1);
+  }
 
-  get sortByModel() { return this.sortBy(); }
-  set sortByModel(v: string) { this.sortBy.set(v ?? 'popular'); }
+  get sortByModel() {
+    return this.sortBy();
+  }
+  set sortByModel(v: string) {
+    this.sortBy.set(v ?? 'popular');
+  }
 
-  get minPriceModel() { return this.minPrice() ?? ''; }
+  get minPriceModel() {
+    return this.minPrice() ?? '';
+  }
   set minPriceModel(v: any) {
     const n = v === '' || v === null ? null : Number(v);
     this.minPrice.set(n);
     this.currentPage.set(1);
   }
 
-  get maxPriceModel() { return this.maxPrice() ?? ''; }
+  get maxPriceModel() {
+    return this.maxPrice() ?? '';
+  }
   set maxPriceModel(v: any) {
     const n = v === '' || v === null ? null : Number(v);
     this.maxPrice.set(n);
@@ -155,7 +173,10 @@ export class HomeComponent {
     }
 
     this.cartService.addProduct(product._id, 1).subscribe({
-      next: () => console.log('Product added to cart'),
+      next: () => {
+        console.log('Product added to cart');
+        this.cartService.getCart().subscribe();
+      },
       error: (err) => console.error('Failed to add product to cart', err),
     });
   }

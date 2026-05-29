@@ -70,8 +70,14 @@ export class CartService {
   }
 
   addProduct(productId: string, quantity: number = 1) {
-    return this.updateCart(productId, quantity).pipe(
-      catchError(() => this.createCart(productId, quantity)),
+    if (this.cart()) {
+      return this.updateCart(productId, quantity).pipe(
+        catchError(() => this.createCart(productId, quantity)),
+      );
+    }
+
+    return this.createCart(productId, quantity).pipe(
+      catchError(() => this.updateCart(productId, quantity)),
     );
   }
 
