@@ -1,1 +1,18 @@
-{"\/api":{"target":"https://api.everrest.educata.dev","secure":true,"changeOrigin":true,"pathRewrite":{"^\\/api":""}}}
+{
+  "/api": {
+    "target": "https://api.everrest.educata.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  },
+  "/webhook": {
+    "target": "http://localhost:5678",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/webhook": "/webhook"
+    }
+  }
+}

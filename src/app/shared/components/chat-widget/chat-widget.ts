@@ -36,10 +36,7 @@ export class ChatWidgetComponent implements AfterViewChecked {
     if (!text || this.isLoading()) return;
 
     // Add user message
-    this.messages.update((msgs) => [
-      ...msgs,
-      { role: 'user', text, time: new Date() },
-    ]);
+    this.messages.update((msgs) => [...msgs, { role: 'user', text, time: new Date() }]);
     this.userInput.set('');
     this.isLoading.set(true);
 
@@ -48,10 +45,16 @@ export class ChatWidgetComponent implements AfterViewChecked {
       .sendMessage(text)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
-        next: (res) => {
+        next: (replyText) => {
           this.messages.update((msgs) => [
             ...msgs,
-            { role: 'bot', text: res.reply, time: new Date() },
+            {
+              role: 'bot',
+              text:
+                replyText ||
+                'ბოდიში, ვერ მივიღე პასუხი. გთხოვ, სცადე ისევ ან დაუკავშირდი მხარდაჭერის გუნდს. ',
+              time: new Date(),
+            },
           ]);
         },
         error: () => {
@@ -59,7 +62,7 @@ export class ChatWidgetComponent implements AfterViewChecked {
             ...msgs,
             {
               role: 'bot',
-              text: 'ბოდიში, შეცდომა მოხდა. გთხოვ სცადე მოგვიანებით. 🙏',
+              text: 'ბოდიში, შეცდომა მოხდა. გთხოვ სცადე მოგვიანებით. ',
               time: new Date(),
             },
           ]);
