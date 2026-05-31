@@ -1,4 +1,4 @@
-import { Component, inject, signal, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, inject, signal, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatService, ChatMessage } from '../../../core/services/chat.service';
 import { finalize } from 'rxjs';
@@ -10,14 +10,17 @@ import { finalize } from 'rxjs';
   templateUrl: './chat-widget.html',
   styleUrl: './chat-widget.css',
 })
-export class ChatWidgetComponent implements AfterViewChecked {
+export class ChatWidgetComponent implements AfterViewChecked, OnDestroy {
   private chatService = inject(ChatService);
 
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
   isOpen = signal(false);
   isLoading = signal(false);
+  isRecording = signal(false);
   userInput = signal('');
+
+  private recognition: any = null;
 
   messages = signal<ChatMessage[]>([
     {
@@ -35,12 +38,10 @@ export class ChatWidgetComponent implements AfterViewChecked {
     const text = this.userInput().trim();
     if (!text || this.isLoading()) return;
 
-    // Add user message
     this.messages.update((msgs) => [...msgs, { role: 'user', text, time: new Date() }]);
     this.userInput.set('');
     this.isLoading.set(true);
 
-    // Send to n8n
     this.chatService
       .sendMessage(text)
       .pipe(finalize(() => this.isLoading.set(false)))
@@ -70,6 +71,56 @@ export class ChatWidgetComponent implements AfterViewChecked {
       });
   }
 
+  toggleVoice() {
+    if (this.isRecording()) {
+      this.stopRecording();
+    } else {
+      this.startRecording();
+    }
+  }
+
+  private startRecording() {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert('თქვენი ბრაუზერი ხმის ამოცნობას არ უჭერს მხარს. გამოიყენეთ Chrome.');
+      return;
+    }
+
+    this.recognition = new SpeechRecognition();
+    this.recognition.lang = 'ka-GE';
+    this.recognition.interimResults = false;
+    this.recognition.maxAlternatives = 1;
+
+    this.recognition.onstart = () => {
+      this.isRecording.set(true);
+    };
+
+    this.recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      this.userInput.set(transcript);
+      this.isRecording.set(false);
+      this.sendMessage();
+    };
+
+    this.recognition.onerror = () => {
+      this.isRecording.set(false);
+    };
+
+    this.recognition.onend = () => {
+      this.isRecording.set(false);
+    };
+
+    this.recognition.start();
+  }
+
+  private stopRecording() {
+    if (this.recognition) {
+      this.recognition.stop();
+    }
+    this.isRecording.set(false);
+  }
+
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
@@ -79,6 +130,12 @@ export class ChatWidgetComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  ngOnDestroy() {
+    if (this.recognition) {
+      this.recognition.stop();
+    }
   }
 
   private scrollToBottom() {
